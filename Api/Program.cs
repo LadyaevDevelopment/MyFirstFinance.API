@@ -80,7 +80,7 @@ builder.Services.AddAuthentication(DefaultApiAuthenticationOptions.DefaultScheme
 
 builder.Services.AddAuthorization();
 
-ServiceRegistration.Register(builder.Services);
+ServiceRegistration.Register(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 

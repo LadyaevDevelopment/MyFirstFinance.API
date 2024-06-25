@@ -13,7 +13,7 @@ namespace Api.Models
 
 		public static PolicyDocumentModel FromEntity(PolicyDocument entity)
 		{
-			return new(title: entity.Title, url: entity.Url);
+			return new(title: entity.Title, url: entity.Path);
 		}
 	}
 }

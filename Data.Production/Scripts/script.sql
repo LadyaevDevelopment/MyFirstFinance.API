@@ -50,7 +50,7 @@ create table CountryPhoneNumberMasks(
 go
 
 create table UserResidenceAddresses(
-	[Id] uniqueidentifier not null constraint PK_Users primary key default NEWID(),
+	[Id] uniqueidentifier not null constraint PK_UserResidenceAddresses primary key default NEWID(),
 	[CountryId] uniqueidentifier not null constraint FK_UserResidenceAddresses_CountryId foreign key references Countries(Id),
 	[City] nvarchar(250) not null,
 	[Street] nvarchar(250) not null,

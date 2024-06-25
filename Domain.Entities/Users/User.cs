@@ -9,5 +9,5 @@
         string Email,
         string? AvatarPath,
         bool IsBlocked,
-        UserStatus status);
+        UserStatus Status);
 }
