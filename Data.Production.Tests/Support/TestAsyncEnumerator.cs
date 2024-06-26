@@ -1,13 +1,10 @@
 namespace Data.Production.Tests.Support
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
     internal class TestAsyncEnumerator<T>(IEnumerator<T> enumerator) : IAsyncEnumerator<T>
     {
         private readonly IEnumerator<T> enumerator = enumerator;
 
-        public T Current => this.enumerator.Current;
+        public T Current => enumerator.Current;
 
         public ValueTask DisposeAsync()
         {

@@ -5,7 +5,6 @@ using Data.Production.Repository.Users;
 using Data.Production.Tests.Support;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using Moq.EntityFrameworkCore;
 
 namespace Data.Production.Tests.Repository;
 
@@ -20,8 +19,10 @@ public class UserRepositoryTests
             new() { Id = userId }
         };
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+        var dbSetMock = CreateDbSetMock(users.AsQueryable());
+
+		var dbContextMock = new Mock<DefaultDbContext>();
+        dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
 
         var repository = new UserRepository(dbContextMock.Object);
         var result = await repository.EntityById(userId);
@@ -36,10 +37,12 @@ public class UserRepositoryTests
         var userId = Guid.NewGuid();
         var users = new List<User>();
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+		var repository = new UserRepository(dbContextMock.Object);
 
         var result = await repository.EntityById(userId);
 
@@ -55,10 +58,12 @@ public class UserRepositoryTests
             new() { Id = Guid.NewGuid() }
         };
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+		var repository = new UserRepository(dbContextMock.Object);
 
         var result = await repository.FilteredEntities(new Domain.Entities.Users.UserSearchParams());
 
@@ -75,9 +80,11 @@ public class UserRepositoryTests
             new() { Id = Guid.NewGuid() }
         };
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-        dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
-        dbContextMock.Setup(db => db.RemoveRange(It.IsAny<IEnumerable<object>>()))
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
+
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+		dbContextMock.Setup(db => db.RemoveRange(It.IsAny<IEnumerable<object>>()))
 			.Callback<IEnumerable<object>>(itemsToRemove =>
 			{
 				var usersToRemove = itemsToRemove.Cast<User>().ToList();
@@ -99,10 +106,12 @@ public class UserRepositoryTests
 	{
         var users = new List<User>().AsQueryable();
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+		var repository = new UserRepository(dbContextMock.Object);
 
         var result = await repository.RemoveByFilter(new Domain.Entities.Users.UserSearchParams());
 
@@ -121,9 +130,11 @@ public class UserRepositoryTests
             new() { Id = new Guid() }
         };
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
-        dbContextMock.Setup(db => db.Remove(It.IsAny<User>()))
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
+
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+		dbContextMock.Setup(db => db.Remove(It.IsAny<User>()))
             .Callback<User>(userToRemove =>
             {
                 users.Remove(userToRemove);
@@ -146,10 +157,12 @@ public class UserRepositoryTests
         var userId = Guid.NewGuid();
         var users = new List<User>();
 
-        var dbContextMock = new Mock<DefaultDbContext>();	
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+		var repository = new UserRepository(dbContextMock.Object);
 
         var result = await repository.RemoveById(userId);
 
@@ -164,8 +177,10 @@ public class UserRepositoryTests
         var userIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
         var users = userIds.Select(id => new User { Id = id }).ToList();
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
+
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
 		dbContextMock.Setup(db => db.RemoveRange(It.IsAny<IEnumerable<object>>()))
 			.Callback<IEnumerable<object>>(itemsToRemove =>
 			{
@@ -190,10 +205,12 @@ public class UserRepositoryTests
         var userIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
         var users = new List<User>();
 
-        var dbContextMock = new Mock<DefaultDbContext>();		
-		dbContextMock.Setup(db => db.Users).ReturnsDbSet(users);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+		var repository = new UserRepository(dbContextMock.Object);
 
         var result = await repository.RemoveById(userIds);
 
@@ -205,25 +222,25 @@ public class UserRepositoryTests
 	[Fact]
 	public async Task SavedEntities_ShouldSaveAndReturnEntities()
 	{
-        var users = new List<User>();
+		var users = new List<User>();
 
-        var dbSetMock = CreateDbSetMock(users.AsQueryable());
-        dbSetMock.Setup(db => db.FindAsync(It.IsAny<object[]>())).Returns((object[] itemId) =>
-        {
-            return new ValueTask<User?>(users.FirstOrDefault(user => user.Id == (Guid)itemId[0]));
-        });
-        dbSetMock.Setup(db => db.Add(It.IsAny<User>())).Callback<User>(users.Add);
+		var dbSetMock = CreateDbSetMock(users.AsQueryable());
+		dbSetMock.Setup(db => db.FindAsync(It.IsAny<object[]>())).Returns((object[] itemId) =>
+		{
+			return new ValueTask<User?>(users.FirstOrDefault(user => user.Id == (Guid)itemId[0]));
+		});
+		dbSetMock.Setup(db => db.Add(It.IsAny<User>())).Callback<User>(users.Add);
 
-        var dbContextMock = new Mock<DefaultDbContext>();
-        dbContextMock.Setup(db => db.Users).Returns(dbSetMock.Object);
+		var dbContextMock = new Mock<DefaultDbContext>();
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var repository = new UserRepository(dbContextMock.Object);
 
-        var entitiesToSave = new List<User> { new() { Id = Guid.NewGuid() }, new() { Id = Guid.NewGuid() } };
+		var entitiesToSave = new List<User> { new() { Id = Guid.NewGuid() }, new() { Id = Guid.NewGuid() } };
 		var result = await repository.SavedEntities(entitiesToSave.Select(item => item.ToEntity()).ToList());
 
 		Assert.Equal(entitiesToSave.Count, users.Count);
-		dbContextMock.Verify(db => db.Users.Add(It.IsAny<User>()), Times.Exactly(entitiesToSave.Count));
+		dbSetMock.Verify(db => db.Add(It.IsAny<User>()), Times.Exactly(entitiesToSave.Count));
 		dbContextMock.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 	}
 
@@ -240,16 +257,16 @@ public class UserRepositoryTests
         dbSetMock.Setup(db => db.Add(It.IsAny<User>())).Callback<User>(users.Add);
 
         var dbContextMock = new Mock<DefaultDbContext>();
-        dbContextMock.Setup(db => db.Users).Returns(dbSetMock.Object);
+		dbContextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
 
-        var repository = new UserRepository(dbContextMock.Object);
+		var repository = new UserRepository(dbContextMock.Object);
 
         var entityToSave = new User { Id = Guid.NewGuid() };
         var result = await repository.SavedEntity(entityToSave.ToEntity());
 
 		Assert.NotNull(result);
 		Assert.Single(users);
-		dbContextMock.Verify(db => db.Users.Add(It.IsAny<User>()), Times.Once);
+		dbSetMock.Verify(db => db.Add(It.IsAny<User>()), Times.Once);
 		dbContextMock.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 	}
 
