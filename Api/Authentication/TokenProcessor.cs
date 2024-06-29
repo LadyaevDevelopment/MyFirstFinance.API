@@ -45,13 +45,14 @@ namespace Api.Authentication
 				if (Guid.TryParse(result.ExtractedValues[1], out var userId))
 				{
 					var user = await userRepository.EntityById(userId);
-                    if (user is null)
-                    {
-						return null;
-                    }
-                    ApiUserModel<User> model = new(user)
+					if (user is null)
 					{
-						Name = user.Email,
+						return null;
+					}
+					ApiUserModel<User> model = new(user)
+					{
+						Id = user.Id,
+						IsBlocked = user.IsBlocked
 					};
 					return model;
 				}

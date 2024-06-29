@@ -1,7 +1,10 @@
-﻿using Api.Communication;
+﻿using Api.Authentication;
+using Api.Communication;
 using Api.Requests.Confirmation;
 using Api.Responses.Confirmation;
-using Domain.Entities.Users;
+using Domain.Repository;
+using Domain.UseCases.RequireConfirmationCode;
+using Domain.UseCases.VerifyConfirmationCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,22 +13,114 @@ namespace Api.Controllers
 	[ApiController]
 	[Route("[controller]")]
 	[AllowAnonymous]
-	public class ConfirmationController : ControllerBase
+	public class ConfirmationController(
+		RequireConfirmationCodeUseCase requireConfirmationCodeUseCase,
+		VerifyConfirmationCodeUseCase verifyConfirmationCodeUseCase,
+		IUserRepository userRepository) : ControllerBase
 	{
 		[HttpPost("[action]")]
-		public async Task<ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeError>> RequireConfirmationCode(
+		public async Task<ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>> RequireConfirmationCode(
 			RequireConfirmationCodeRequest request)
 		{
-			return new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeError>(
-				new RequireConfirmationCodeResponse(Guid.NewGuid(), 5, 120, 3, 600));
+			var result = await requireConfirmationCodeUseCase.Process(request.CountryPhoneCode + request.PhoneNumber);
+			if (result.Successful)
+			{
+				return new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
+					new RequireConfirmationCodeResponse(
+						result.Data!.ConfirmationCodeId,
+						result.Data!.ConfirmationCodeLength,
+						result.Data!.ResendTimeInSeconds,
+						result.Data!.AllowedConfirmCodeAttemptCount,
+						result.Data.ConfirmationCodeLifeTimeInSeconds));
+			}
+			else
+			{
+				return result.Error!.ErrorType switch
+				{
+					RequireConfirmationCodeErrorType.UserBlocked =>
+						new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
+							OperationStatus.Forbidden,
+							new RequireConfirmationCodeApiError(
+								RequireConfirmationCodeApiErrorType.UserBlocked,
+								result.Error!.RemainingTemporaryBlockingTimeInSeconds!),
+							errorMessage: null),
+					RequireConfirmationCodeErrorType.UserTemporaryBlocked =>
+						new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
+							OperationStatus.Forbidden,
+							new RequireConfirmationCodeApiError(
+								RequireConfirmationCodeApiErrorType.UserTemporaryBlocked,
+								result.Error!.RemainingTemporaryBlockingTimeInSeconds!),
+							errorMessage: null),
+					RequireConfirmationCodeErrorType.ConfirmationCodeAlreadySent =>
+						new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
+							OperationStatus.TooManyRequests,
+							error: null,
+							errorMessage: null),
+					RequireConfirmationCodeErrorType.Other =>
+						new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
+							OperationStatus.Failed,
+							error: null,
+							result.Error!.ErrorMessage),
+					_ => throw new NotImplementedException(),
+				};
+			}
 		}
 
 		[HttpPost("[action]")]
-		public async Task<ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeError>> VerifyConfirmationCode(
+		public async Task<ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>> VerifyConfirmationCode(
 			VerifyConfirmationCodeRequest request)
 		{
-			return new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeError>(
-				new VerifyConfirmationCodeResponse(Guid.NewGuid(), "", UserStatus.NeedToSpecifyBirthDate));
+			var result = await verifyConfirmationCodeUseCase.Process(request.ConfirmationCodeId, request.ConfirmationCode);
+
+			if (result.Successful)
+			{
+				var token = TokenProcessor.GetToken(result.Data!.UserId);
+				var user = (await userRepository.EntityById(result.Data!.UserId))!;
+
+				return new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+					new VerifyConfirmationCodeResponse(
+						result.Data!.UserId,
+						token,
+						user.Status));
+			}
+			else
+			{
+				return result.Error!.ErrorType switch
+				{
+					VerifyConfirmationCodeErrorType.CodeNotFound =>
+						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+							OperationStatus.NotFound,
+							error: null,
+							errorMessage: null),
+					VerifyConfirmationCodeErrorType.WrongCode =>
+						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+							OperationStatus.InvalidRequest,
+							error: new VerifyConfirmationCodeApiError(
+								VerifyConfirmationCodeApiErrorType.WrongCode,
+								temporaryBlockingTimeInSeconds: null),
+							errorMessage: null),
+					VerifyConfirmationCodeErrorType.CodeLifeTimeExpired =>
+						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+							OperationStatus.Failed,
+							error: new VerifyConfirmationCodeApiError(
+								VerifyConfirmationCodeApiErrorType.CodeLifeTimeExpired,
+								temporaryBlockingTimeInSeconds: null),
+							errorMessage: null),
+					VerifyConfirmationCodeErrorType.FailedCodeConfirmationAttemptCountExceeded =>
+						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+							OperationStatus.Failed,
+							error: new VerifyConfirmationCodeApiError(
+								VerifyConfirmationCodeApiErrorType.FailedCodeConfirmationAttemptCountExceeded,
+								temporaryBlockingTimeInSeconds: result.Error!.TemporaryBlockingTimeInSeconds),
+							errorMessage: null),
+					VerifyConfirmationCodeErrorType.Other =>
+						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.ErrorMessage),
+					_ => throw new NotImplementedException(),
+				};
+			}
 		}
 	}
 }

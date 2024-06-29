@@ -4,7 +4,7 @@ namespace Api.Authentication
 {
 	public class ApiUserModel
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 
 		public bool IsBlocked { get; set; }
 

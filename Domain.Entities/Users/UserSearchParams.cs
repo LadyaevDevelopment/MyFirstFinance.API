@@ -1,4 +1,7 @@
 ﻿namespace Domain.Entities.Users
 {
-	public record UserSearchParams();
+	public class UserSearchParams
+	{
+		public string? PhoneNumber { get; set; }
+	}
 }

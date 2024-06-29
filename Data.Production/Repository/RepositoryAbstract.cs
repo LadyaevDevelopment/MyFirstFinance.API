@@ -6,14 +6,23 @@ using System.Reflection;
 
 namespace Data.Production.Repository
 {
-	public abstract class RepositoryAbstract<TEntity, TDbModel, TSearchParams>(DefaultDbContext dbContext) : IRepository<TEntity, TSearchParams>
+	public abstract class RepositoryAbstract<TEntity, TDbModel, TSearchParams> : IRepository<TEntity, TSearchParams>
 		where TEntity : class where TSearchParams : class where TDbModel : class
 	{
+		protected DefaultDbContext DbContext { get; }
+
+		public RepositoryAbstract(DefaultDbContext dbContext)
+		{
+			DbContext = dbContext;
+		}
+
 		protected abstract TEntity ToEntity(TDbModel model);
 
 		protected abstract TDbModel ToModel(TEntity entity);
 		
 		protected abstract IQueryable<TDbModel> BuildFilterQuery(IQueryable<TDbModel> items, TSearchParams searchParams);
+
+		protected virtual IQueryable<TDbModel> BuildDependencies(IQueryable<TDbModel> items) => items;
 
 		protected abstract Expression<Func<TDbModel, Guid>> IdByDbModelExpression();
 
@@ -47,23 +56,24 @@ namespace Data.Production.Repository
 
 		public async Task<TEntity?> EntityById(Guid id)
 		{
-			var item = await dbContext.Set<TDbModel>().Where(FilterDbModelByIdExpression(id)).FirstOrDefaultAsync();
+			var item = await BuildDependencies(DbContext.Set<TDbModel>().Where(FilterDbModelByIdExpression(id)))
+				.FirstOrDefaultAsync();
 			return item is null ? null : ToEntity(item);
 		}
 
 		public async Task<List<TEntity>> FilteredEntities(TSearchParams searchParams)
 		{
-			var items = await BuildFilterQuery(dbContext.Set<TDbModel>(), searchParams).ToListAsync();
+			var items = await BuildDependencies(BuildFilterQuery(DbContext.Set<TDbModel>(), searchParams)).ToListAsync();
 			return items.Select(ToEntity).ToList();
 		}
 
 		public async Task<bool> RemoveByFilter(TSearchParams searchParams)
 		{
-			var items = await BuildFilterQuery(dbContext.Set<TDbModel>(), searchParams).ToListAsync();
+			var items = await BuildDependencies(BuildFilterQuery(DbContext.Set<TDbModel>(), searchParams)).ToListAsync();
 			if (items.Count != 0)
 			{
-				dbContext.RemoveRange(items);
-				await dbContext.SaveChangesAsync();
+				DbContext.RemoveRange(items);
+				await DbContext.SaveChangesAsync();
 				return true;
 			}
 			return false;
@@ -71,11 +81,11 @@ namespace Data.Production.Repository
 
 		public async Task<bool> RemoveById(Guid id)
 		{
-			var item = await dbContext.Set<TDbModel>().Where(FilterDbModelByIdExpression(id)).FirstOrDefaultAsync();
+			var item = await DbContext.Set<TDbModel>().Where(FilterDbModelByIdExpression(id)).FirstOrDefaultAsync();
 			if (item != null)
 			{
-				dbContext.Remove(item);
-				await dbContext.SaveChangesAsync();
+				DbContext.Remove(item);
+				await DbContext.SaveChangesAsync();
 				return true;
 			}
 			return false;
@@ -83,13 +93,13 @@ namespace Data.Production.Repository
 
 		public async Task<bool> RemoveById(List<Guid> ids)
 		{
-			var itemsToDelete = await dbContext.Set<TDbModel>()
+			var itemsToDelete = await DbContext.Set<TDbModel>()
 				.Where(FilterDbModelByIdsExpression(ids))
 				.ToListAsync();
 			if (itemsToDelete.Count != 0)
 			{
-				dbContext.RemoveRange(itemsToDelete);
-				await dbContext.SaveChangesAsync();
+				DbContext.RemoveRange(itemsToDelete);
+				await DbContext.SaveChangesAsync();
 				return true;
 			}
 			return false;
@@ -103,14 +113,14 @@ namespace Data.Production.Repository
 				var existingItem = await EntityById(IdByModel(item));
 				if (existingItem != null)
 				{
-					dbContext.Entry(existingItem).CurrentValues.SetValues(item);
+					DbContext.Entry(existingItem).CurrentValues.SetValues(item);
 				}
 				else
 				{
-					dbContext.Set<TDbModel>().Add(item);
+					DbContext.Set<TDbModel>().Add(item);
 				}
 			}
-			await dbContext.SaveChangesAsync();
+			await DbContext.SaveChangesAsync();
 
 			return savedItems.Select(ToEntity).ToList();
 		}
@@ -122,14 +132,14 @@ namespace Data.Production.Repository
 			var existingItem = await EntityById(IdByModel(savedItem));
 			if (existingItem != null)
 			{
-				dbContext.Entry(existingItem).CurrentValues.SetValues(savedItem);
+				DbContext.Entry(existingItem).CurrentValues.SetValues(savedItem);
 			}
 			else
 			{
-				dbContext.Set<TDbModel>().Add(savedItem);
+				DbContext.Set<TDbModel>().Add(savedItem);
 			}
 
-			await dbContext.SaveChangesAsync();
+			await DbContext.SaveChangesAsync();
 
 			return ToEntity(savedItem);
 		}

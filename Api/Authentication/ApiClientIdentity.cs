@@ -10,15 +10,16 @@ namespace Api.Authentication
 
 		private static List<Claim> GetClientClaims(ApiUserModel? userData)
 		{
-			if (userData == null || userData.IsBlocked)
-			{
-				return [];
-			}
-			var result = new List<Claim>
-			{
-				new(ClaimTypes.Name, userData.Name),
-			};
-			return result;
+			return [];
+			//if (userData == null || userData.IsBlocked)
+			//{
+			//	return [];
+			//}
+			//var result = new List<Claim>
+			//{
+			//	new(ClaimTypes.Name, userData.Name),
+			//};
+			//return result;
 		}
 	}
 }

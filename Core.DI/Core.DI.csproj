@@ -12,10 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.SmsService\Core.SmsService.csproj" />
     <ProjectReference Include="..\Data.Mock\Data.Mock.csproj" />
     <ProjectReference Include="..\Data.Production\Data.Production.csproj" />
     <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj" />
     <ProjectReference Include="..\Domain.Repository\Domain.Repository.csproj" />
+    <ProjectReference Include="..\Domain.Services\Domain.Services.csproj" />
+    <ProjectReference Include="..\Domain.UseCases\Domain.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

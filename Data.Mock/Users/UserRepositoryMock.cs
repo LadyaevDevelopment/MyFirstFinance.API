@@ -10,6 +10,8 @@ namespace Data.Mock.Users
             "LastName",
             "FirstName",
             null,
+            DateOnly.FromDateTime(DateTime.Now),
+            null,
             "PhoneNumber",
             "Email",
             null,
@@ -26,7 +28,7 @@ namespace Data.Mock.Users
             return Task.FromResult(new List<User> { Entity });
         }
 
-        public Task<bool> RemoveByFilter(UserSearchParams searchParams)
+		public Task<bool> RemoveByFilter(UserSearchParams searchParams)
         {
             return Task.FromResult(true);
         }
@@ -50,5 +52,15 @@ namespace Data.Mock.Users
         {
             return Task.FromResult(entityToSave);
         }
-    }
+
+		public Task<bool> RemoveBanById(Guid id)
+		{
+			return Task.FromResult(true);
+		}
+
+		public Task<UserTemporaryBan> SavedTemporaryBan(UserTemporaryBan item)
+		{
+			return Task.FromResult(item);
+		}
+	}
 }

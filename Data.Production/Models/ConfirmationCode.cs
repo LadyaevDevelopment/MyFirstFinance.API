@@ -15,5 +15,7 @@ public partial class ConfirmationCode
 
     public int StatusId { get; set; }
 
+    public int FailedCodeConfirmationAttemptCount { get; set; }
+
     public virtual User User { get; set; } = null!;
 }

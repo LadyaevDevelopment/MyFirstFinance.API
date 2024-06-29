@@ -71,7 +71,7 @@ namespace Common
 
 		public static bool IsEmailValid(string email)
 		{
-			return email != null && EmailRegex().IsMatch(email);
+			return EmailRegex().IsMatch(email);
 		}
 
 		[GeneratedRegex("^[0-9a-zA-Z]([.-]?\\w+)*@[0-9a-zA-Z]([.-]?[0-9a-zA-Z])*(\\.[0-9a-zA-Z]{2,4})+$")]

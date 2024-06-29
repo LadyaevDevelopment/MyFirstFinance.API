@@ -7,17 +7,16 @@ namespace Data.Production.Context;
 
 public partial class DefaultDbContext : DbContext
 {
-    public DefaultDbContext(DbContextOptions<DefaultDbContext> options)
+	public DefaultDbContext()
+	{
+	}
+
+	public DefaultDbContext(DbContextOptions<DefaultDbContext> options)
         : base(options)
     {
     }
 
-    public DefaultDbContext()
-    {
-
-    }
-
-	public virtual DbSet<ConfirmationCode> ConfirmationCodes { get; set; }
+    public virtual DbSet<ConfirmationCode> ConfirmationCodes { get; set; }
 
     public virtual DbSet<Country> Countries { get; set; }
 
@@ -28,6 +27,8 @@ public partial class DefaultDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserResidenceAddress> UserResidenceAddresses { get; set; }
+
+    public virtual DbSet<UserTemporaryBan> UserTemporaryBans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,6 +79,7 @@ public partial class DefaultDbContext : DbContext
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.MiddleName).HasMaxLength(100);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+            entity.Property(e => e.PinCode).HasMaxLength(20);
             entity.Property(e => e.RegistrationDate).HasColumnType("datetime");
         });
 
@@ -93,6 +95,17 @@ public partial class DefaultDbContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserResidenceAddresses_CountryId");
+        });
+
+        modelBuilder.Entity<UserTemporaryBan>(entity =>
+        {
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserTemporaryBans)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserTemporaryBans_UserId");
         });
 
         OnModelCreatingPartial(modelBuilder);

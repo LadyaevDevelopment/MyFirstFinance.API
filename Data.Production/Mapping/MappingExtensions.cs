@@ -8,6 +8,8 @@ using PolicyDocumentEntity = Domain.Entities.PolicyDocuments.PolicyDocument;
 using PolicyDocumentModel = Data.Production.Models.PolicyDocument;
 using UserEntity = Domain.Entities.Users.User;
 using UserModel = Data.Production.Models.User;
+using UserTemporaryBanEntity = Domain.Entities.Users.UserTemporaryBan;
+using UserTemporaryBanModel = Data.Production.Models.UserTemporaryBan;
 
 namespace Data.Production.Mapping
 {
@@ -38,11 +40,16 @@ namespace Data.Production.Mapping
 				model.LastName,
 				model.FirstName,
 				model.MiddleName,
+				model.BirthDate,
+				model.PinCode,
 				model.PhoneNumber,
 				model.Email,
 				model.AvatarPath,
 				model.IsBlocked,
-				(UserStatus)model.StatusId);
+				(UserStatus)model.StatusId)
+			{
+				UserTemporaryBans = model.UserTemporaryBans.Select(item => item.ToEntity()).ToList(),
+			};
 		}
 
 		public static UserModel ToModel(this UserEntity entity)
@@ -53,6 +60,8 @@ namespace Data.Production.Mapping
 				LastName = entity.LastName,
 				FirstName = entity.FirstName,
 				MiddleName = entity.MiddleName,
+				BirthDate = entity.BirthDate,
+				PinCode = entity.PinCode,
 				PhoneNumber = entity.PhoneNumber,
 				Email = entity.Email,
 				AvatarPath = entity.AvatarPath,
@@ -90,7 +99,8 @@ namespace Data.Production.Mapping
 				model.UserId,
 				model.Code,
 				model.CreationDate,
-				(ConfirmationCodeStatus)model.StatusId);
+				(ConfirmationCodeStatus)model.StatusId,
+				model.FailedCodeConfirmationAttemptCount);
 		}
 
 		public static ConfirmationCodeModel ToModel(this ConfirmationCodeEntity entity)
@@ -101,7 +111,28 @@ namespace Data.Production.Mapping
 				UserId = entity.UserId,
 				Code = entity.Code,
 				CreationDate = entity.CreationDate,
-				StatusId = (int)entity.Status
+				StatusId = (int)entity.Status,
+				FailedCodeConfirmationAttemptCount = entity.FailedCodeConfirmationAttemptCount
+			};
+		}
+
+		public static UserTemporaryBanEntity ToEntity(this UserTemporaryBanModel model)
+		{
+			return new UserTemporaryBanEntity(
+				model.Id,
+				model.UserId,
+				model.StartDate,
+				model.DurationInSeconds);
+		}
+
+		public static UserTemporaryBanModel ToModel(this UserTemporaryBanEntity entity)
+		{
+			return new UserTemporaryBanModel
+			{
+				Id = entity.Id,
+				UserId = entity.UserId,
+				StartDate = entity.StartDate,
+				DurationInSeconds = entity.DurationInSeconds,
 			};
 		}
 	}

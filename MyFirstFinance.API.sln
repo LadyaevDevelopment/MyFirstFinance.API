@@ -26,9 +26,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Production", "Data.Pro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Production.Tests", "Data.Production.Tests\Data.Production.Tests.csproj", "{743E6A08-7DB4-4E3A-9041-DE72776A22BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UseCases", "Domain.UseCases\Domain.UseCases.csproj", "{3E7BC3EB-0F15-4B9A-A501-0CBCCB0C6A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UseCases", "Domain.UseCases\Domain.UseCases.csproj", "{3E7BC3EB-0F15-4B9A-A501-0CBCCB0C6A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UseCases.Tests", "Domain.UseCases.Tests\Domain.UseCases.Tests.csproj", "{ECD8A476-A4FF-4CFE-9D92-D1A25308E60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UseCases.Tests", "Domain.UseCases.Tests\Domain.UseCases.Tests.csproj", "{ECD8A476-A4FF-4CFE-9D92-D1A25308E60B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Services", "Domain.Services\Domain.Services.csproj", "{F034D66B-D3D6-4714-AA1F-72EA23E7DBF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.SmsService", "Core.SmsService\Core.SmsService.csproj", "{D2340E41-E489-4262-BDCA-EA99F86B33F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +84,14 @@ Global
 		{ECD8A476-A4FF-4CFE-9D92-D1A25308E60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD8A476-A4FF-4CFE-9D92-D1A25308E60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD8A476-A4FF-4CFE-9D92-D1A25308E60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F034D66B-D3D6-4714-AA1F-72EA23E7DBF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F034D66B-D3D6-4714-AA1F-72EA23E7DBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F034D66B-D3D6-4714-AA1F-72EA23E7DBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F034D66B-D3D6-4714-AA1F-72EA23E7DBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2340E41-E489-4262-BDCA-EA99F86B33F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2340E41-E489-4262-BDCA-EA99F86B33F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2340E41-E489-4262-BDCA-EA99F86B33F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2340E41-E489-4262-BDCA-EA99F86B33F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

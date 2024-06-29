@@ -1,4 +1,4 @@
-﻿namespace Api.Models
+﻿namespace Domain.Entities.Users
 {
 	public enum ProvisioningUserDataStep
 	{

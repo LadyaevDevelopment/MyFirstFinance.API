@@ -5,5 +5,6 @@
 		Guid UserId,
 		string Code,
 		DateTime CreationDate,
-		ConfirmationCodeStatus Status);
+		ConfirmationCodeStatus Status,
+		int FailedCodeConfirmationAttemptCount);
 }

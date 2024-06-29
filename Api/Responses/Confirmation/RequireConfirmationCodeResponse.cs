@@ -4,7 +4,7 @@
 		Guid confirmationCodeId,
 		int confirmationCodeLength,
 		int resendTimeInSeconds,
-		int allowedConfirmCodeAttemptCount,
+		int allowedCodeConfirmationAttemptCount,
 		int confirmationCodeLifeTimeInSeconds)
 	{
 		public Guid ConfirmationCodeId { get; set; } = confirmationCodeId;
@@ -13,7 +13,7 @@
 
 		public int ResendTimeInSeconds { get; set; } = resendTimeInSeconds;
 
-		public int AllowedConfirmCodeAttemptCount { get; set; } = allowedConfirmCodeAttemptCount;
+		public int AllowedCodeConfirmationAttemptCount { get; set; } = allowedCodeConfirmationAttemptCount;
 
 		public int ConfirmationCodeLifeTimeInSeconds { get; set; } = confirmationCodeLifeTimeInSeconds;
 	}

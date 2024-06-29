@@ -6,23 +6,34 @@ use MyFirstFinance;
 
 create table Users(
 	[Id] uniqueidentifier not null constraint PK_Users primary key default NEWID(),
-	[FirstName] nvarchar(100) not null,
+	[FirstName] nvarchar(100) null,
 	[MiddleName] nvarchar(100) null,
-	[LastName] nvarchar(100) not null,
 	[RegistrationDate] datetime not null,
+	[LastName] nvarchar(100) null,
 	[StatusId] int not null,
+	[BirthDate] date null,
+	[PinCode] nvarchar(20) null,
 	[PhoneNumber] nvarchar(20) not null,
 	[Email] nvarchar(50) null,
-	[AvatarPath] nvarchar(max) null
+	[AvatarPath] nvarchar(max) null,
+	[IsBlocked] bit not null
 );
 go
+
+create table UserTemporaryBans(
+	[Id] uniqueidentifier not null constraint PK_UserTemporaryBans primary key default NEWID(),
+	[UserId] uniqueidentifier not null constraint FK_UserTemporaryBans_UserId foreign key references Users(Id),
+	[StartDate] datetime not null,
+	[DurationInSeconds] int not null
+);
 
 create table ConfirmationCodes(
 	[Id] uniqueidentifier not null constraint PK_ConfirmationCodes primary key default NEWID(),
 	[UserId] uniqueidentifier not null constraint FK_ConfirmationCodes_UserId foreign key references Users(Id),
 	[Code] nvarchar(10) not null,
 	[CreationDate] datetime not null,
-	[StatusId] int not null
+	[StatusId] int not null,
+	[FailedCodeConfirmationAttemptCount] int not null
 );
 go
 
