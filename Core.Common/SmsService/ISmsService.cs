@@ -1,4 +1,4 @@
-﻿namespace Domain.Services.SmsService
+﻿namespace Core.Common.SmsService
 {
 	public interface ISmsService
 	{

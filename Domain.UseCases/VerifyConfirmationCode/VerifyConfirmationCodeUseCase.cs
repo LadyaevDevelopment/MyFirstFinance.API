@@ -1,15 +1,15 @@
-﻿using Domain.Entities.ConfirmationCodes;
+﻿using Core.Common.DateTimeNow;
+using Domain.Entities.ConfirmationCodes;
 using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.Repository;
-using Domain.Services.DateTimeNow;
 
 namespace Domain.UseCases.VerifyConfirmationCode
 {
 	public class VerifyConfirmationCodeUseCase(
 		IConfirmationCodeRepository confirmationCodeRepository,
 		IUserRepository userRepository,
-		DateTimeNow dateTimeNow,
+		IDateTimeNow dateTimeNow,
 		Configuration configuration)
 	{
 		public async Task<VerifyConfirmationCodeResult> Process(Guid codeId, string code)
@@ -21,7 +21,7 @@ namespace Domain.UseCases.VerifyConfirmationCode
 					new VerifyConfirmationCodeError(
 						VerifyConfirmationCodeErrorType.CodeNotFound,
 						TemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: null));
+						Exception: null));
 			}
 
 			var user = await userRepository.EntityById(confirmationCode.UserId);
@@ -31,7 +31,7 @@ namespace Domain.UseCases.VerifyConfirmationCode
 					new VerifyConfirmationCodeError(
 						VerifyConfirmationCodeErrorType.Other,
 						TemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: "User not found"));
+						Exception: new Exception("User not found")));
 			}
 			if (user.IsBlocked)
 			{
@@ -39,31 +39,31 @@ namespace Domain.UseCases.VerifyConfirmationCode
 					new VerifyConfirmationCodeError(
 						VerifyConfirmationCodeErrorType.Other,
 						TemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: "User is blocked"));
+						Exception: new Exception("User is blocked")));
 			}
 			if (user.UserTemporaryBans.Count > 0)
 			{
 				foreach (var ban in user.UserTemporaryBans)
 				{
 					var banTime = dateTimeNow.Now - ban.StartDate;
-					if (banTime.Seconds <= configuration.UserTemporaryBlockingTimeInSeconds)
+					if (banTime.TotalSeconds <= ban.DurationInSeconds)
 					{
 						return new VerifyConfirmationCodeResult.Failure(
 						   new VerifyConfirmationCodeError(
 							   VerifyConfirmationCodeErrorType.Other,
 							   TemporaryBlockingTimeInSeconds: null,
-							   ErrorMessage: "User is temporary blocked"));
+							   Exception: new Exception("User is temporary blocked")));
 					}
 					else
 					{
-						await userRepository.RemoveBanById(ban.Id);
+						await userRepository.RemoveTemporaryBanById(ban.Id);
 					}
 				}
 			}
 
 			var codeLifeTime = dateTimeNow.Now - confirmationCode.CreationDate;
-			if (codeLifeTime.Seconds > configuration.ConfirmationCodeLifeTimeInSeconds
-				|| codeLifeTime.Seconds > configuration.ResendConfirmationCodeTimeInSeconds)
+			if (codeLifeTime.TotalSeconds > configuration.ConfirmationCodeLifeTimeInSeconds
+				|| codeLifeTime.TotalSeconds > configuration.ResendConfirmationCodeTimeInSeconds)
 			{
 				await confirmationCodeRepository.SavedEntity(
 					confirmationCode with { Status = ConfirmationCodeStatus.Inactive });
@@ -72,7 +72,7 @@ namespace Domain.UseCases.VerifyConfirmationCode
 					new VerifyConfirmationCodeError(
 						VerifyConfirmationCodeErrorType.CodeLifeTimeExpired,
 						TemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: null));
+						Exception: null));
 			}
 
 			if (confirmationCode.Code != code)
@@ -94,7 +94,7 @@ namespace Domain.UseCases.VerifyConfirmationCode
 						new VerifyConfirmationCodeError(
 							VerifyConfirmationCodeErrorType.FailedCodeConfirmationAttemptCountExceeded,
 							TemporaryBlockingTimeInSeconds: configuration.UserTemporaryBlockingTimeInSeconds,
-							ErrorMessage: null));
+							Exception: null));
 				}
 				else
 				{
@@ -102,7 +102,7 @@ namespace Domain.UseCases.VerifyConfirmationCode
 						new VerifyConfirmationCodeError(
 							VerifyConfirmationCodeErrorType.WrongCode,
 							TemporaryBlockingTimeInSeconds: null,
-							ErrorMessage: null));
+							Exception: null));
 				}
 			}
 

@@ -69,3 +69,11 @@ create table UserResidenceAddresses(
 	[ApartmentNumber] nvarchar(20) not null
 );
 go
+
+create table IdentityDocuments(
+	[Id] uniqueidentifier not null constraint PK_IdentityDocuments primary key default NEWID(),
+	[UserId] uniqueidentifier not null constraint FK_IdentityDocuments_UserId foreign key references Users(Id),
+	[Skipped] bit not null,
+	[Path] nvarchar(max) null
+);
+go

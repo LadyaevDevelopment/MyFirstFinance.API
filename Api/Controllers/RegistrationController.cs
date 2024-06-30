@@ -32,7 +32,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyBirthDateApiError>> SpecifyBirthDate(
 			SpecifyBirthDateRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await specifyBirthDateUseCase.Process(userId, request.Date);
 			if (result.Successful)
@@ -75,7 +75,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyName(
 			SpecifyNameRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await specifyNameUseCase.Process(userId, request.LastName, request.FirstName, request.MiddleName);
 			if (result.Successful)
@@ -104,6 +104,11 @@ namespace Api.Controllers
 							OperationStatus.InvalidRequest,
 							error: new SpecifyUserInfoApiError(SpecifyUserInfoApiErrorType.InvalidData),
 							errorMessage: null),
+					SpecifyUserInfoErrorType.Other =>
+						new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -113,7 +118,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyEmail(
 			SpecifyEmailRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await specifyEmailUseCase.Process(userId, request.Email);
 			if (result.Successful)
@@ -142,6 +147,11 @@ namespace Api.Controllers
 							OperationStatus.InvalidRequest,
 							error: new SpecifyUserInfoApiError(SpecifyUserInfoApiErrorType.InvalidData),
 							errorMessage: null),
+					SpecifyUserInfoErrorType.Other =>
+						new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -151,7 +161,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyResidenceAddress(
 			SpecifyResidenceAddressRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			// TODO: fix
 			var result = await specifyResidenceAddressUseCase.Process(
@@ -187,6 +197,11 @@ namespace Api.Controllers
 							OperationStatus.InvalidRequest,
 							error: new SpecifyUserInfoApiError(SpecifyUserInfoApiErrorType.InvalidData),
 							errorMessage: null),
+					SpecifyUserInfoErrorType.Other =>
+						new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -196,7 +211,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyPinCode(
 			SpecifyPinCodeRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await specifyPinCodeUseCase.Process(userId, request.PinCode);
 			if (result.Successful)
@@ -225,6 +240,11 @@ namespace Api.Controllers
 							OperationStatus.InvalidRequest,
 							error: new SpecifyUserInfoApiError(SpecifyUserInfoApiErrorType.InvalidData),
 							errorMessage: null),
+					SpecifyUserInfoErrorType.Other =>
+						new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -234,7 +254,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyIdentityDocument(
 			SpecifyIdentityDocumentRequest request)
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await specifyIdentityDocumentUseCase.Process(userId, request.DocumentBytes);
 			if (result.Successful)
@@ -263,6 +283,11 @@ namespace Api.Controllers
 							OperationStatus.InvalidRequest,
 							error: new SpecifyUserInfoApiError(SpecifyUserInfoApiErrorType.InvalidData),
 							errorMessage: null),
+					SpecifyUserInfoErrorType.Other =>
+						new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
+							OperationStatus.Failed,
+							error: null,
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -271,7 +296,7 @@ namespace Api.Controllers
 		[HttpGet("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse>> SkipProvisioningIdentityDocument()
 		{
-			var userId = this.ApiUser()!.Id;
+			var userId = this.User()!.Id;
 
 			var result = await skipProvisioningIdentityDocumentUseCase.Process(userId);
 			if (result.Successful)
@@ -292,7 +317,7 @@ namespace Api.Controllers
 					SkipProvisioningIdentityDocumentErrorType.Other =>
 						new ResponseWrapper<SpecifyUserDataResponse>(
 							OperationStatus.Failed,
-							errorMessage: result.Error!.ErrorMessage),
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}

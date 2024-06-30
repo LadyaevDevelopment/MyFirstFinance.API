@@ -1,7 +1,7 @@
-﻿using Api.Authentication;
-using Api.Communication;
+﻿using Api.Communication;
 using Api.Requests.Confirmation;
 using Api.Responses.Confirmation;
+using Core.Common.Authentication;
 using Domain.Repository;
 using Domain.UseCases.RequireConfirmationCode;
 using Domain.UseCases.VerifyConfirmationCode;
@@ -16,7 +16,8 @@ namespace Api.Controllers
 	public class ConfirmationController(
 		RequireConfirmationCodeUseCase requireConfirmationCodeUseCase,
 		VerifyConfirmationCodeUseCase verifyConfirmationCodeUseCase,
-		IUserRepository userRepository) : ControllerBase
+		IUserRepository userRepository,
+		ITokenProcessor tokenProcessor) : ControllerBase
 	{
 		[HttpPost("[action]")]
 		public async Task<ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>> RequireConfirmationCode(
@@ -60,7 +61,7 @@ namespace Api.Controllers
 						new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
 							OperationStatus.Failed,
 							error: null,
-							result.Error!.ErrorMessage),
+							result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -74,7 +75,7 @@ namespace Api.Controllers
 
 			if (result.Successful)
 			{
-				var token = TokenProcessor.GetToken(result.Data!.UserId);
+				var token = tokenProcessor.TokenById(result.Data!.UserId);
 				var user = (await userRepository.EntityById(result.Data!.UserId))!;
 
 				return new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
@@ -117,7 +118,7 @@ namespace Api.Controllers
 						new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
 							OperationStatus.Failed,
 							error: null,
-							errorMessage: result.Error!.ErrorMessage),
+							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),
 				};
 			}

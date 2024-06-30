@@ -1,7 +1,7 @@
-﻿using Domain.Entities.Misc;
+﻿using Core.Common.DateTimeNow;
+using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.Repository;
-using Domain.Services.DateTimeNow;
 using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
@@ -9,7 +9,7 @@ namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
 	public class SpecifyBirthDateUseCase(
         IUserRepository userRepository,
 		ProvisioningUserData provisioningUserData,
-		DateTimeNow dateTimeNow,
+		IDateTimeNow dateTimeNow,
         Configuration configuration)
     {
         public async Task<SpecifyBirthDateResult> Process(Guid userId, DateOnly birthDate)
@@ -19,19 +19,19 @@ namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
             {
                 return new SpecifyBirthDateResult.Failure(
                     new SpecifyBirthDateError(
-                        SpecifyBirthDateErrorType.UserNotFound, ErrorMessage: null));
+                        SpecifyBirthDateErrorType.UserNotFound, Exception: null));
             }
             if (user.BirthDate != null)
             {
 				return new SpecifyBirthDateResult.Failure(
 	                new SpecifyBirthDateError(
-		                SpecifyBirthDateErrorType.AlreadySpecified, ErrorMessage: null));
+		                SpecifyBirthDateErrorType.AlreadySpecified, Exception: null));
 			}
             if (birthDate.ToDateTime(new TimeOnly(0, 0)) > dateTimeNow.Now)
             {
 				return new SpecifyBirthDateResult.Failure(
 	                new SpecifyBirthDateError(
-		                SpecifyBirthDateErrorType.InvalidData, ErrorMessage: "Specified birth date is in the future"));
+		                SpecifyBirthDateErrorType.InvalidData, Exception: new Exception("Specified birth date is in the future")));
 			}
             
             var age = Age(birthDate);
@@ -39,13 +39,13 @@ namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
             {
 				return new SpecifyBirthDateResult.Failure(
 	                new SpecifyBirthDateError(
-		                SpecifyBirthDateErrorType.InvalidData, ErrorMessage: "Specified birth date is too old"));
+		                SpecifyBirthDateErrorType.InvalidData, Exception: new Exception("Specified birth date is too old")));
 			}
 			if (age < configuration.MinUserAge)
             {
                 return new SpecifyBirthDateResult.Failure(
                     new SpecifyBirthDateError(
-                        SpecifyBirthDateErrorType.UserIsMinor, ErrorMessage: null));
+                        SpecifyBirthDateErrorType.UserIsMinor, Exception: null));
             }
             
             user = await userRepository.SavedEntity(user with { BirthDate = birthDate });

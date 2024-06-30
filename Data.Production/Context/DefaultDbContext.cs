@@ -22,6 +22,8 @@ public partial class DefaultDbContext : DbContext
 
     public virtual DbSet<CountryPhoneNumberMask> CountryPhoneNumberMasks { get; set; }
 
+    public virtual DbSet<IdentityDocument> IdentityDocuments { get; set; }
+
     public virtual DbSet<PolicyDocument> PolicyDocuments { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -63,6 +65,16 @@ public partial class DefaultDbContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CountryPhoneNumberMasks_CountryId");
+        });
+
+        modelBuilder.Entity<IdentityDocument>(entity =>
+        {
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+
+            entity.HasOne(d => d.User).WithMany(p => p.IdentityDocuments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_IdentityDocuments_UserId");
         });
 
         modelBuilder.Entity<PolicyDocument>(entity =>

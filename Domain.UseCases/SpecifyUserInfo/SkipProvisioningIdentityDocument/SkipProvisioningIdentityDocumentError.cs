@@ -2,5 +2,5 @@
 {
 	public record SkipProvisioningIdentityDocumentError(
 		SkipProvisioningIdentityDocumentErrorType ErrorType,
-		string? ErrorMessage);
+		Exception? Exception);
 }

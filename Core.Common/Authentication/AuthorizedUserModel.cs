@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Api.Authentication
+namespace Core.Common.Authentication
 {
-	public class ApiUserModel
+	public class AuthorizedUserModel
 	{
 		public Guid Id { get; set; }
 
@@ -11,7 +11,7 @@ namespace Api.Authentication
 		public string Name { get; set; } = "";
 	}
 
-	public class ApiUserModel<TEntity>(TEntity entity) : ApiUserModel where TEntity : class
+	public class ApiUserModel<TEntity>(TEntity entity) : AuthorizedUserModel where TEntity : class
 	{
 		[JsonIgnore]
 		public TEntity Entity { get; set; } = entity;

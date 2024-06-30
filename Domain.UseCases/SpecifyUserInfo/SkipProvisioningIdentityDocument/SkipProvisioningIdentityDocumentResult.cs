@@ -10,7 +10,10 @@ namespace Domain.UseCases.SpecifyUserInfo.SkipProvisioningIdentityDocument
 
 		public SkipProvisioningIdentityDocumentError? Error { get; }
 
-		private SkipProvisioningIdentityDocumentResult(bool successful, SpecifyUserInfoData data, SkipProvisioningIdentityDocumentError? error)
+		private SkipProvisioningIdentityDocumentResult(
+			bool successful,
+			SpecifyUserInfoData? data,
+			SkipProvisioningIdentityDocumentError? error)
 		{
 			Successful = successful;
 			Data = data;

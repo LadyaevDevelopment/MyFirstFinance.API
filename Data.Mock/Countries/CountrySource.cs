@@ -2,11 +2,12 @@
 
 namespace Data.Mock.Countries
 {
-    internal static class CountrySource
+	internal static class CountrySource
 	{
 		public static readonly Country[] Data =
 		[
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "United Arab Emirates",
 				Iso2Code: "AE",
 				PhoneNumberCode: "+971",
@@ -14,6 +15,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["5-##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Afghanistan",
 				Iso2Code: "AF",
 				PhoneNumberCode: "+93",
@@ -21,6 +23,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Aland Islands",
 				Iso2Code: "AX",
 				PhoneNumberCode: "+358",
@@ -28,6 +31,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Albania",
 				Iso2Code: "AL",
 				PhoneNumberCode: "+355",
@@ -35,6 +39,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Algeria",
 				Iso2Code: "DZ",
 				PhoneNumberCode: "+213",
@@ -42,6 +47,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "American Samoa",
 				Iso2Code: "AS",
 				PhoneNumberCode: "+1",
@@ -49,6 +55,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(684)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Andorra",
 				Iso2Code: "AD",
 				PhoneNumberCode: "+376",
@@ -56,6 +63,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Angola",
 				Iso2Code: "AO",
 				PhoneNumberCode: "+244",
@@ -63,6 +71,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Anguilla",
 				Iso2Code: "AI",
 				PhoneNumberCode: "+1",
@@ -70,6 +79,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(224)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Antarctica",
 				Iso2Code: "AQ",
 				PhoneNumberCode: "+672",
@@ -77,6 +87,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["1##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Antigua and Barbuda",
 				Iso2Code: "AG",
 				PhoneNumberCode: "+1",
@@ -84,6 +95,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(268)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Argentina",
 				Iso2Code: "AR",
 				PhoneNumberCode: "+54",
@@ -91,6 +103,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Armenia",
 				Iso2Code: "AM",
 				PhoneNumberCode: "+374",
@@ -98,6 +111,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Aruba",
 				Iso2Code: "AW",
 				PhoneNumberCode: "+297",
@@ -105,6 +119,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ascension Island",
 				Iso2Code: "AC",
 				PhoneNumberCode: "+247",
@@ -112,6 +127,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Australia",
 				Iso2Code: "AU",
 				PhoneNumberCode: "+61",
@@ -119,6 +135,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Austria",
 				Iso2Code: "AT",
 				PhoneNumberCode: "+43",
@@ -126,6 +143,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Azerbaijan",
 				Iso2Code: "AZ",
 				PhoneNumberCode: "+994",
@@ -133,6 +151,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bahamas",
 				Iso2Code: "BS",
 				PhoneNumberCode: "+1",
@@ -140,6 +159,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(242)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bahrain",
 				Iso2Code: "BH",
 				PhoneNumberCode: "+973",
@@ -163,6 +183,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bangladesh",
 				Iso2Code: "BD",
 				PhoneNumberCode: "+880",
@@ -170,6 +191,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["1###-######"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Barbados",
 				Iso2Code: "BB",
 				PhoneNumberCode: "+1",
@@ -177,6 +199,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(246)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Belarus",
 				Iso2Code: "BY",
 				PhoneNumberCode: "+375",
@@ -184,6 +207,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(##)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Belgium",
 				Iso2Code: "BE",
 				PhoneNumberCode: "+32",
@@ -191,6 +215,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Belize",
 				Iso2Code: "BZ",
 				PhoneNumberCode: "+501",
@@ -198,6 +223,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Benin",
 				Iso2Code: "BJ",
 				PhoneNumberCode: "+229",
@@ -205,6 +231,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bermuda",
 				Iso2Code: "BM",
 				PhoneNumberCode: "+1",
@@ -212,6 +239,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(441)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bhutan",
 				Iso2Code: "BT",
 				PhoneNumberCode: "+975",
@@ -219,6 +247,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["17-###-###", "#-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bolivia",
 				Iso2Code: "BO",
 				PhoneNumberCode: "+591",
@@ -226,6 +255,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bosnia and Herzegovina",
 				Iso2Code: "BA",
 				PhoneNumberCode: "+387",
@@ -233,6 +263,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####", "##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Botswana",
 				Iso2Code: "BW",
 				PhoneNumberCode: "+267",
@@ -240,6 +271,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Brazil",
 				Iso2Code: "BR",
 				PhoneNumberCode: "+55",
@@ -247,6 +279,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(##)####-####", "(##)#####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "British Indian Ocean Territory",
 				Iso2Code: "IO",
 				PhoneNumberCode: "+246",
@@ -254,6 +287,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Brunei Darussalam",
 				Iso2Code: "BN",
 				PhoneNumberCode: "+673",
@@ -261,6 +295,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Bulgaria",
 				Iso2Code: "BG",
 				PhoneNumberCode: "+359",
@@ -268,6 +303,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Burkina Faso",
 				Iso2Code: "BF",
 				PhoneNumberCode: "+226",
@@ -275,6 +311,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Burundi",
 				Iso2Code: "BI",
 				PhoneNumberCode: "+257",
@@ -282,6 +319,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cambodia",
 				Iso2Code: "KH",
 				PhoneNumberCode: "+855",
@@ -289,6 +327,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cameroon",
 				Iso2Code: "CM",
 				PhoneNumberCode: "+237",
@@ -296,6 +335,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Canada",
 				Iso2Code: "CA",
 				PhoneNumberCode: "+1",
@@ -303,6 +343,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cape Verde",
 				Iso2Code: "CV",
 				PhoneNumberCode: "+238",
@@ -310,6 +351,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cayman Islands",
 				Iso2Code: "KY",
 				PhoneNumberCode: "+1",
@@ -317,6 +359,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(345)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Central African Republic",
 				Iso2Code: "CF",
 				PhoneNumberCode: "+236",
@@ -324,6 +367,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Chad",
 				Iso2Code: "TD",
 				PhoneNumberCode: "+235",
@@ -331,6 +375,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Chile",
 				Iso2Code: "CL",
 				PhoneNumberCode: "+56",
@@ -338,6 +383,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "China",
 				Iso2Code: "CN",
 				PhoneNumberCode: "+86",
@@ -345,6 +391,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)####-###", "(###)####-####", "##-#####-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Christmas Island",
 				Iso2Code: "CX",
 				PhoneNumberCode: "+61",
@@ -352,6 +399,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cocos (Keeling) Islands",
 				Iso2Code: "CC",
 				PhoneNumberCode: "+61",
@@ -359,6 +407,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Colombia",
 				Iso2Code: "CO",
 				PhoneNumberCode: "+57",
@@ -366,6 +415,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Comoros",
 				Iso2Code: "KM",
 				PhoneNumberCode: "+269",
@@ -373,6 +423,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Congo",
 				Iso2Code: "CG",
 				PhoneNumberCode: "+242",
@@ -380,6 +431,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cook Islands",
 				Iso2Code: "CK",
 				PhoneNumberCode: "+682",
@@ -387,6 +439,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Costa Rica",
 				Iso2Code: "CR",
 				PhoneNumberCode: "+506",
@@ -394,6 +447,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Croatia",
 				Iso2Code: "HR",
 				PhoneNumberCode: "+385",
@@ -401,6 +455,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cuba",
 				Iso2Code: "CU",
 				PhoneNumberCode: "+53",
@@ -408,6 +463,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Cyprus",
 				Iso2Code: "CY",
 				PhoneNumberCode: "+357",
@@ -415,6 +471,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Czech Republic",
 				Iso2Code: "CZ",
 				PhoneNumberCode: "+420",
@@ -422,6 +479,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Democratic Republic of the Congo",
 				Iso2Code: "CD",
 				PhoneNumberCode: "+243",
@@ -429,6 +487,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Denmark",
 				Iso2Code: "DK",
 				PhoneNumberCode: "+45",
@@ -436,6 +495,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Djibouti",
 				Iso2Code: "DJ",
 				PhoneNumberCode: "+253",
@@ -443,6 +503,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Dominica",
 				Iso2Code: "DM",
 				PhoneNumberCode: "+1",
@@ -450,6 +511,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(767)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Dominican Republic",
 				Iso2Code: "DO",
 				PhoneNumberCode: "+1",
@@ -457,6 +519,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(809)###-####", "(829)###-####", "(849)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ecuador",
 				Iso2Code: "EC",
 				PhoneNumberCode: "+593",
@@ -464,6 +527,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####", "##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Egypt",
 				Iso2Code: "EG",
 				PhoneNumberCode: "+20",
@@ -471,6 +535,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "El Salvador",
 				Iso2Code: "SV",
 				PhoneNumberCode: "+503",
@@ -478,6 +543,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Equatorial Guinea",
 				Iso2Code: "GQ",
 				PhoneNumberCode: "+240",
@@ -485,6 +551,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Eritrea",
 				Iso2Code: "ER",
 				PhoneNumberCode: "+291",
@@ -492,6 +559,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Estonia",
 				Iso2Code: "EE",
 				PhoneNumberCode: "+372",
@@ -499,6 +567,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####", "####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Eswatini",
 				Iso2Code: "SZ",
 				PhoneNumberCode: "+268",
@@ -506,6 +575,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ethiopia",
 				Iso2Code: "ET",
 				PhoneNumberCode: "+251",
@@ -513,6 +583,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Falkland Islands (Malvinas)",
 				Iso2Code: "FK",
 				PhoneNumberCode: "+500",
@@ -520,6 +591,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Faroe Islands",
 				Iso2Code: "FO",
 				PhoneNumberCode: "+298",
@@ -527,6 +599,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Fiji",
 				Iso2Code: "FJ",
 				PhoneNumberCode: "+679",
@@ -534,6 +607,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Finland",
 				Iso2Code: "FI",
 				PhoneNumberCode: "+358",
@@ -541,6 +615,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "France",
 				Iso2Code: "FR",
 				PhoneNumberCode: "+33",
@@ -548,6 +623,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["# ## ## ## ##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "French Guiana",
 				Iso2Code: "GF",
 				PhoneNumberCode: "+594",
@@ -555,6 +631,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "French Polynesia",
 				Iso2Code: "PF",
 				PhoneNumberCode: "+689",
@@ -562,6 +639,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Gabon",
 				Iso2Code: "GA",
 				PhoneNumberCode: "+241",
@@ -569,6 +647,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Gambia",
 				Iso2Code: "GM",
 				PhoneNumberCode: "+220",
@@ -576,6 +655,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Georgia",
 				Iso2Code: "GE",
 				PhoneNumberCode: "+995",
@@ -583,6 +663,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Germany",
 				Iso2Code: "DE",
 				PhoneNumberCode: "+49",
@@ -598,6 +679,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ghana",
 				Iso2Code: "GH",
 				PhoneNumberCode: "+233",
@@ -605,6 +687,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Gibraltar",
 				Iso2Code: "GI",
 				PhoneNumberCode: "+350",
@@ -612,6 +695,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Greece",
 				Iso2Code: "GR",
 				PhoneNumberCode: "+30",
@@ -619,6 +703,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Greenland",
 				Iso2Code: "GL",
 				PhoneNumberCode: "+299",
@@ -626,6 +711,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Grenada",
 				Iso2Code: "GD",
 				PhoneNumberCode: "+1",
@@ -633,6 +719,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(473)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guadeloupe",
 				Iso2Code: "GP",
 				PhoneNumberCode: "+590",
@@ -640,6 +727,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guam",
 				Iso2Code: "GU",
 				PhoneNumberCode: "+1",
@@ -647,6 +735,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(671)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guatemala",
 				Iso2Code: "GT",
 				PhoneNumberCode: "+502",
@@ -654,6 +743,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guernsey",
 				Iso2Code: "GG",
 				PhoneNumberCode: "+44",
@@ -661,6 +751,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guinea",
 				Iso2Code: "GN",
 				PhoneNumberCode: "+224",
@@ -668,6 +759,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guinea-Bissau",
 				Iso2Code: "GW",
 				PhoneNumberCode: "+245",
@@ -675,6 +767,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-######"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Guyana",
 				Iso2Code: "GY",
 				PhoneNumberCode: "+592",
@@ -682,6 +775,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Haiti",
 				Iso2Code: "HT",
 				PhoneNumberCode: "+509",
@@ -689,6 +783,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Holy See (Vatican City State)",
 				Iso2Code: "VA",
 				PhoneNumberCode: "+39",
@@ -696,6 +791,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["06 698#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Honduras",
 				Iso2Code: "HN",
 				PhoneNumberCode: "+504",
@@ -703,6 +799,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Hong Kong",
 				Iso2Code: "HK",
 				PhoneNumberCode: "+852",
@@ -710,6 +807,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Hungary",
 				Iso2Code: "HU",
 				PhoneNumberCode: "+36",
@@ -717,6 +815,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Iceland",
 				Iso2Code: "IS",
 				PhoneNumberCode: "+354",
@@ -724,6 +823,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "India",
 				Iso2Code: "IN",
 				PhoneNumberCode: "+91",
@@ -731,6 +831,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(####)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Indonesia",
 				Iso2Code: "ID",
 				PhoneNumberCode: "+62",
@@ -745,6 +846,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Iran",
 				Iso2Code: "IR",
 				PhoneNumberCode: "+98",
@@ -752,6 +854,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Iraq",
 				Iso2Code: "IQ",
 				PhoneNumberCode: "+924",
@@ -759,6 +862,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ireland",
 				Iso2Code: "IE",
 				PhoneNumberCode: "+353",
@@ -766,6 +870,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Isle of Man",
 				Iso2Code: "IM",
 				PhoneNumberCode: "+44",
@@ -773,6 +878,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Israel",
 				Iso2Code: "IL",
 				PhoneNumberCode: "+972",
@@ -780,6 +886,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####", "5#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Italy",
 				Iso2Code: "IT",
 				PhoneNumberCode: "+39",
@@ -787,6 +894,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)####-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ivory Coast / Cote d'Ivoire",
 				Iso2Code: "CI",
 				PhoneNumberCode: "+225",
@@ -794,6 +902,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Jamaica",
 				Iso2Code: "JM",
 				PhoneNumberCode: "+1",
@@ -801,6 +910,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(876)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Japan",
 				Iso2Code: "JP",
 				PhoneNumberCode: "+81",
@@ -808,6 +918,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###", "##-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Jersey",
 				Iso2Code: "JE",
 				PhoneNumberCode: "+44",
@@ -815,6 +926,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Jordan",
 				Iso2Code: "JO",
 				PhoneNumberCode: "+962",
@@ -822,6 +934,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kazakhstan",
 				Iso2Code: "KZ",
 				PhoneNumberCode: "+77",
@@ -829,6 +942,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(6##)###-##-##", "(7##)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kenya",
 				Iso2Code: "KE",
 				PhoneNumberCode: "+254",
@@ -836,6 +950,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-######"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kiribati",
 				Iso2Code: "KI",
 				PhoneNumberCode: "+686",
@@ -843,6 +958,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Korea, Democratic People's Republic of Korea",
 				Iso2Code: "KP",
 				PhoneNumberCode: "+850",
@@ -858,6 +974,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Korea, Republic of South Korea",
 				Iso2Code: "KR",
 				PhoneNumberCode: "+82",
@@ -865,6 +982,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kosovo",
 				Iso2Code: "XK",
 				PhoneNumberCode: "+383",
@@ -872,6 +990,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###", "###-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kuwait",
 				Iso2Code: "KW",
 				PhoneNumberCode: "+965",
@@ -879,6 +998,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["41-###-###", "5-##-##-###", "6-##-##-###", "9-##-##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Kyrgyzstan",
 				Iso2Code: "KG",
 				PhoneNumberCode: "+996",
@@ -886,6 +1006,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Laos",
 				Iso2Code: "LA",
 				PhoneNumberCode: "+856",
@@ -893,6 +1014,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###", "(20##)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Latvia",
 				Iso2Code: "LV",
 				PhoneNumberCode: "+371",
@@ -900,6 +1022,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Lebanon",
 				Iso2Code: "LB",
 				PhoneNumberCode: "+961",
@@ -907,6 +1030,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###", "##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Lesotho",
 				Iso2Code: "LS",
 				PhoneNumberCode: "+266",
@@ -914,6 +1038,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Liberia",
 				Iso2Code: "LR",
 				PhoneNumberCode: "+231",
@@ -921,6 +1046,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Libya",
 				Iso2Code: "LY",
 				PhoneNumberCode: "+218",
@@ -928,6 +1054,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###", "21-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Liechtenstein",
 				Iso2Code: "LI",
 				PhoneNumberCode: "+423",
@@ -935,6 +1062,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Lithuania",
 				Iso2Code: "LT",
 				PhoneNumberCode: "+370",
@@ -942,6 +1070,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Luxembourg",
 				Iso2Code: "LU",
 				PhoneNumberCode: "+352",
@@ -949,6 +1078,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Macau",
 				Iso2Code: "MO",
 				PhoneNumberCode: "+853",
@@ -956,6 +1086,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Madagascar",
 				Iso2Code: "MG",
 				PhoneNumberCode: "+261",
@@ -963,6 +1094,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Malawi",
 				Iso2Code: "MW",
 				PhoneNumberCode: "+265",
@@ -970,6 +1102,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["1-###-###", "#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Malaysia",
 				Iso2Code: "MY",
 				PhoneNumberCode: "+60",
@@ -977,6 +1110,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###", "##-###-###", "(###)###-###", "##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Maldives",
 				Iso2Code: "MV",
 				PhoneNumberCode: "+960",
@@ -984,6 +1118,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mali",
 				Iso2Code: "ML",
 				PhoneNumberCode: "+223",
@@ -991,6 +1126,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Malta",
 				Iso2Code: "MT",
 				PhoneNumberCode: "+356",
@@ -998,6 +1134,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Marshall Islands",
 				Iso2Code: "MH",
 				PhoneNumberCode: "+692",
@@ -1005,6 +1142,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Martinique",
 				Iso2Code: "MQ",
 				PhoneNumberCode: "+596",
@@ -1012,6 +1150,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mauritania",
 				Iso2Code: "MR",
 				PhoneNumberCode: "+222",
@@ -1019,6 +1158,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mauritius",
 				Iso2Code: "MU",
 				PhoneNumberCode: "+230",
@@ -1026,6 +1166,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mayotte",
 				Iso2Code: "YT",
 				PhoneNumberCode: "+262",
@@ -1033,6 +1174,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mexico",
 				Iso2Code: "MX",
 				PhoneNumberCode: "+52",
@@ -1040,6 +1182,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####", "(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Micronesia, Federated States of Micronesia",
 				Iso2Code: "FM",
 				PhoneNumberCode: "+691",
@@ -1047,6 +1190,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Moldova",
 				Iso2Code: "MD",
 				PhoneNumberCode: "+373",
@@ -1054,6 +1198,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Monaco",
 				Iso2Code: "MC",
 				PhoneNumberCode: "+377",
@@ -1061,6 +1206,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###", "(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mongolia",
 				Iso2Code: "MN",
 				PhoneNumberCode: "+976",
@@ -1068,6 +1214,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Montenegro",
 				Iso2Code: "ME",
 				PhoneNumberCode: "+382",
@@ -1075,6 +1222,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Montserrat",
 				Iso2Code: "MS",
 				PhoneNumberCode: "+1",
@@ -1082,6 +1230,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(624)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Morocco",
 				Iso2Code: "MA",
 				PhoneNumberCode: "+212",
@@ -1089,6 +1238,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Mozambique",
 				Iso2Code: "MZ",
 				PhoneNumberCode: "+258",
@@ -1096,6 +1246,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Myanmar",
 				Iso2Code: "MM",
 				PhoneNumberCode: "+95",
@@ -1103,6 +1254,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-###", "#-###-###", "##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Namibia",
 				Iso2Code: "NA",
 				PhoneNumberCode: "+224",
@@ -1110,6 +1262,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Nauru",
 				Iso2Code: "NR",
 				PhoneNumberCode: "+674",
@@ -1117,6 +1270,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Nepal",
 				Iso2Code: "NP",
 				PhoneNumberCode: "+977",
@@ -1124,6 +1278,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Netherlands",
 				Iso2Code: "NL",
 				PhoneNumberCode: "+31",
@@ -1131,6 +1286,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "New Caledonia",
 				Iso2Code: "NC",
 				PhoneNumberCode: "+687",
@@ -1138,6 +1294,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "New Zealand",
 				Iso2Code: "NZ",
 				PhoneNumberCode: "+24",
@@ -1145,6 +1302,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###", "(###)###-###", "(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Nicaragua",
 				Iso2Code: "NI",
 				PhoneNumberCode: "+505",
@@ -1152,6 +1310,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Niger",
 				Iso2Code: "NE",
 				PhoneNumberCode: "+227",
@@ -1159,6 +1318,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Nigeria",
 				Iso2Code: "NG",
 				PhoneNumberCode: "+234",
@@ -1166,6 +1326,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-##", "##-###-###", "(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Niue",
 				Iso2Code: "NU",
 				PhoneNumberCode: "+683",
@@ -1173,6 +1334,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Norfolk Island",
 				Iso2Code: "NF",
 				PhoneNumberCode: "+672",
@@ -1180,6 +1342,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["3##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "North Macedonia",
 				Iso2Code: "MK",
 				PhoneNumberCode: "+389",
@@ -1187,6 +1350,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Northern Mariana Islands",
 				Iso2Code: "MP",
 				PhoneNumberCode: "+1",
@@ -1194,6 +1358,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(670)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Norway",
 				Iso2Code: "NO",
 				PhoneNumberCode: "+47",
@@ -1201,6 +1366,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Oman",
 				Iso2Code: "OM",
 				PhoneNumberCode: "+968",
@@ -1237,6 +1403,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Pakistan",
 				Iso2Code: "PK",
 				PhoneNumberCode: "+92",
@@ -1244,6 +1411,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Palau",
 				Iso2Code: "PW",
 				PhoneNumberCode: "+680",
@@ -1251,6 +1419,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Palestine",
 				Iso2Code: "PS",
 				PhoneNumberCode: "+970",
@@ -1258,6 +1427,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Panama",
 				Iso2Code: "PA",
 				PhoneNumberCode: "+507",
@@ -1265,6 +1435,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Papua New Guinea",
 				Iso2Code: "PG",
 				PhoneNumberCode: "+675",
@@ -1272,6 +1443,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Paraguay",
 				Iso2Code: "PY",
 				PhoneNumberCode: "+595",
@@ -1279,6 +1451,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Peru",
 				Iso2Code: "PE",
 				PhoneNumberCode: "+51",
@@ -1286,6 +1459,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Philippines",
 				Iso2Code: "PH",
 				PhoneNumberCode: "+63",
@@ -1293,6 +1467,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Pitcairn",
 				Iso2Code: "PN",
 				PhoneNumberCode: "+870",
@@ -1300,6 +1475,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Poland",
 				Iso2Code: "PL",
 				PhoneNumberCode: "+48",
@@ -1307,6 +1483,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Portugal",
 				Iso2Code: "PT",
 				PhoneNumberCode: "+351",
@@ -1314,6 +1491,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Puerto Rico",
 				Iso2Code: "PR",
 				PhoneNumberCode: "+1",
@@ -1321,6 +1499,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(787) ### ####", "(939) ### ####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Qatar",
 				Iso2Code: "QA",
 				PhoneNumberCode: "+974",
@@ -1335,6 +1514,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Reunion",
 				Iso2Code: "RE",
 				PhoneNumberCode: "+262",
@@ -1342,6 +1522,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Romania",
 				Iso2Code: "RO",
 				PhoneNumberCode: "+40",
@@ -1349,6 +1530,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Russia",
 				Iso2Code: "RU",
 				PhoneNumberCode: "+7",
@@ -1356,6 +1538,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Rwanda",
 				Iso2Code: "RW",
 				PhoneNumberCode: "+250",
@@ -1363,6 +1546,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Barthelemy",
 				Iso2Code: "BL",
 				PhoneNumberCode: "+590",
@@ -1370,6 +1554,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-##-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Helena, Ascension and Tristan Da Cunha",
 				Iso2Code: "SH",
 				PhoneNumberCode: "+290",
@@ -1377,6 +1562,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Kitts and Nevis",
 				Iso2Code: "KN",
 				PhoneNumberCode: "+1",
@@ -1384,6 +1570,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(869)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Lucia",
 				Iso2Code: "LC",
 				PhoneNumberCode: "+1",
@@ -1391,6 +1578,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(758)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Martin",
 				Iso2Code: "MF",
 				PhoneNumberCode: "+590",
@@ -1398,6 +1586,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Pierre and Miquelon",
 				Iso2Code: "PM",
 				PhoneNumberCode: "+508",
@@ -1405,6 +1594,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saint Vincent and the Grenadines",
 				Iso2Code: "VC",
 				PhoneNumberCode: "+1",
@@ -1412,6 +1602,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(784)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Samoa",
 				Iso2Code: "WS",
 				PhoneNumberCode: "+685",
@@ -1419,6 +1610,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "San Marino",
 				Iso2Code: "SM",
 				PhoneNumberCode: "+378",
@@ -1426,6 +1618,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-######"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sao Tome and Principe",
 				Iso2Code: "ST",
 				PhoneNumberCode: "+239",
@@ -1433,6 +1626,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Saudi Arabia",
 				Iso2Code: "SA",
 				PhoneNumberCode: "+966",
@@ -1454,6 +1648,7 @@ namespace Data.Mock.Countries
 				]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Senegal",
 				Iso2Code: "SN",
 				PhoneNumberCode: "+221",
@@ -1461,6 +1656,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Serbia",
 				Iso2Code: "RS",
 				PhoneNumberCode: "+381",
@@ -1468,6 +1664,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Seychelles",
 				Iso2Code: "SC",
 				PhoneNumberCode: "+248",
@@ -1475,6 +1672,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sierra Leone",
 				Iso2Code: "SL",
 				PhoneNumberCode: "+232",
@@ -1482,6 +1680,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-######"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Singapore",
 				Iso2Code: "SG",
 				PhoneNumberCode: "+65",
@@ -1489,6 +1688,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sint Maarten",
 				Iso2Code: "SX",
 				PhoneNumberCode: "+1",
@@ -1496,6 +1696,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(721)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Slovakia",
 				Iso2Code: "SK",
 				PhoneNumberCode: "+421",
@@ -1503,6 +1704,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Slovenia",
 				Iso2Code: "SI",
 				PhoneNumberCode: "+386",
@@ -1510,6 +1712,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Solomon Islands",
 				Iso2Code: "SB",
 				PhoneNumberCode: "+677",
@@ -1517,6 +1720,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####", "###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Somalia",
 				Iso2Code: "SO",
 				PhoneNumberCode: "+252",
@@ -1524,6 +1728,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###", "##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "South Africa",
 				Iso2Code: "ZA",
 				PhoneNumberCode: "+27",
@@ -1531,6 +1736,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "South Georgia and the South Sandwich Islands",
 				Iso2Code: "GS",
 				PhoneNumberCode: "+500",
@@ -1538,6 +1744,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "South Sudan",
 				Iso2Code: "SS",
 				PhoneNumberCode: "+211",
@@ -1545,6 +1752,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Spain",
 				Iso2Code: "ES",
 				PhoneNumberCode: "+34",
@@ -1552,6 +1760,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sri Lanka",
 				Iso2Code: "LK",
 				PhoneNumberCode: "+94",
@@ -1559,6 +1768,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sudan",
 				Iso2Code: "SD",
 				PhoneNumberCode: "+249",
@@ -1566,6 +1776,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Suriname",
 				Iso2Code: "SR",
 				PhoneNumberCode: "+597",
@@ -1573,6 +1784,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-###", "###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Svalbard and Jan Mayen",
 				Iso2Code: "SJ",
 				PhoneNumberCode: "+47",
@@ -1580,6 +1792,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)##-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Sweden",
 				Iso2Code: "SE",
 				PhoneNumberCode: "+46",
@@ -1587,6 +1800,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Switzerland",
 				Iso2Code: "CH",
 				PhoneNumberCode: "+41",
@@ -1594,6 +1808,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Syrian Arab Republic",
 				Iso2Code: "SY",
 				PhoneNumberCode: "+963",
@@ -1601,6 +1816,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Taiwan",
 				Iso2Code: "TW",
 				PhoneNumberCode: "+886",
@@ -1608,6 +1824,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####-####", "#-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tajikistan",
 				Iso2Code: "TJ",
 				PhoneNumberCode: "+992",
@@ -1615,6 +1832,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tanzania, United Republic of Tanzania",
 				Iso2Code: "TZ",
 				PhoneNumberCode: "+255",
@@ -1622,6 +1840,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Thailand",
 				Iso2Code: "TH",
 				PhoneNumberCode: "+66",
@@ -1629,6 +1848,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###", "##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Timor-Leste",
 				Iso2Code: "TL",
 				PhoneNumberCode: "+670",
@@ -1636,6 +1856,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["###-####", "77#-#####", "78#-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Togo",
 				Iso2Code: "TG",
 				PhoneNumberCode: "+228",
@@ -1643,6 +1864,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tokelau",
 				Iso2Code: "TK",
 				PhoneNumberCode: "+690",
@@ -1650,6 +1872,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tonga",
 				Iso2Code: "TO",
 				PhoneNumberCode: "+676",
@@ -1657,6 +1880,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Trinidad and Tobago",
 				Iso2Code: "TT",
 				PhoneNumberCode: "+1",
@@ -1664,6 +1888,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(868)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tunisia",
 				Iso2Code: "TN",
 				PhoneNumberCode: "+216",
@@ -1671,6 +1896,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Turkey",
 				Iso2Code: "TR",
 				PhoneNumberCode: "+90",
@@ -1678,6 +1904,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Turkmenistan",
 				Iso2Code: "TM",
 				PhoneNumberCode: "+993",
@@ -1685,6 +1912,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Turks and Caicos Islands",
 				Iso2Code: "TC",
 				PhoneNumberCode: "+1",
@@ -1692,6 +1920,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(249)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Tuvalu",
 				Iso2Code: "TV",
 				PhoneNumberCode: "+688",
@@ -1699,6 +1928,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["2####", "90####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Uganda",
 				Iso2Code: "UG",
 				PhoneNumberCode: "+256",
@@ -1706,6 +1936,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Ukraine",
 				Iso2Code: "UA",
 				PhoneNumberCode: "+380",
@@ -1713,6 +1944,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(##)###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "United Kingdom",
 				Iso2Code: "GB",
 				PhoneNumberCode: "+44",
@@ -1720,6 +1952,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "United States",
 				Iso2Code: "US",
 				PhoneNumberCode: "+1",
@@ -1727,6 +1960,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Uruguay",
 				Iso2Code: "UY",
 				PhoneNumberCode: "+598",
@@ -1734,6 +1968,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-##-##"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Uzbekistan",
 				Iso2Code: "UZ",
 				PhoneNumberCode: "+998",
@@ -1741,6 +1976,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Vanuatu",
 				Iso2Code: "VU",
 				PhoneNumberCode: "+678",
@@ -1748,6 +1984,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#####", "##-#####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Venezuela, Bolivarian Republic of Venezuela",
 				Iso2Code: "VE",
 				PhoneNumberCode: "+58",
@@ -1755,6 +1992,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(###)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Vietnam",
 				Iso2Code: "VN",
 				PhoneNumberCode: "+84",
@@ -1762,6 +2000,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####-###", "(###)####-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Virgin Islands, British",
 				Iso2Code: "VG",
 				PhoneNumberCode: "+1",
@@ -1769,6 +2008,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(284)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Virgin Islands, U.S.",
 				Iso2Code: "VI",
 				PhoneNumberCode: "+1",
@@ -1776,6 +2016,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["(340)###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Wallis and Futuna",
 				Iso2Code: "WF",
 				PhoneNumberCode: "+681",
@@ -1783,6 +2024,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Yemen",
 				Iso2Code: "YE",
 				PhoneNumberCode: "+967",
@@ -1790,6 +2032,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["#-###-###", "##-###-###", "###-###-###"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Zambia",
 				Iso2Code: "ZM",
 				PhoneNumberCode: "+260",
@@ -1797,6 +2040,7 @@ namespace Data.Mock.Countries
 				PhoneNumberMasks: ["##-###-####"]
 			),
 			new Country(
+				Id: Guid.NewGuid(),
 				Name: "Zimbabwe",
 				Iso2Code: "ZW",
 				PhoneNumberCode: "+263",

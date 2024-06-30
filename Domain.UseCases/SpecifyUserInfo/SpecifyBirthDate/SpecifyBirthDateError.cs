@@ -2,5 +2,5 @@
 {
     public record SpecifyBirthDateError(
         SpecifyBirthDateErrorType ErrorType,
-        string? ErrorMessage);
+		Exception? Exception);
 }

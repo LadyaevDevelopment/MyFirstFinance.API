@@ -31,5 +31,7 @@ public partial class User
 
     public virtual ICollection<ConfirmationCode> ConfirmationCodes { get; set; } = new List<ConfirmationCode>();
 
+    public virtual ICollection<IdentityDocument> IdentityDocuments { get; set; } = new List<IdentityDocument>();
+
     public virtual ICollection<UserTemporaryBan> UserTemporaryBans { get; set; } = new List<UserTemporaryBan>();
 }

@@ -1,19 +1,19 @@
-﻿using Domain.Entities.ConfirmationCodes;
+﻿using Core.Common.DateTimeNow;
+using Core.Common.Random;
+using Core.Common.SmsService;
+using Domain.Entities.ConfirmationCodes;
 using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.Repository;
-using Domain.Services.CodeGeneration;
-using Domain.Services.DateTimeNow;
-using Domain.Services.SmsService;
 
 namespace Domain.UseCases.RequireConfirmationCode
 {
 	public class RequireConfirmationCodeUseCase(
 		ISmsService smsService,
-		CodeGeneration codeGeneration,
+		IRandom random,
 		IConfirmationCodeRepository confirmationCodeRepository,
 		IUserRepository userRepository,
-		DateTimeNow dateTimeNow,
+		IDateTimeNow dateTimeNow,
 		Configuration configuration)
     {
         public async Task<RequireConfirmationCodeResult> Process(string phoneNumber)
@@ -44,24 +44,24 @@ namespace Domain.UseCases.RequireConfirmationCode
 					new RequireConfirmationCodeError(
 						RequireConfirmationCodeErrorType.UserBlocked,
 						RemainingTemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: null));
+						Exception: null));
 			}
 			if (user.UserTemporaryBans.Count > 0)
 			{
                 foreach (var ban in user.UserTemporaryBans)
                 {
                     var banTime = dateTimeNow.Now - ban.StartDate;
-                    if (banTime.Seconds <= configuration.UserTemporaryBlockingTimeInSeconds)
+                    if (banTime.TotalSeconds <= ban.DurationInSeconds)
                     {
 						return new RequireConfirmationCodeResult.Failure(
 		                   new RequireConfirmationCodeError(
 			                   RequireConfirmationCodeErrorType.UserTemporaryBlocked,
 			                   configuration.UserTemporaryBlockingTimeInSeconds - banTime.Seconds,
-			                   ErrorMessage: null));
+							   Exception: null));
 					}
                     else
                     {
-                        await userRepository.RemoveBanById(ban.Id);
+                        await userRepository.RemoveTemporaryBanById(ban.Id);
                     }
                 }
 			}
@@ -75,8 +75,8 @@ namespace Domain.UseCases.RequireConfirmationCode
             foreach (var activeConfirmationCode in activeConfirmationCodes)
             {
                 var codeLifeTime = dateTimeNow.Now - activeConfirmationCode.CreationDate;
-				if (codeLifeTime.Seconds > configuration.ConfirmationCodeLifeTimeInSeconds
-                    || codeLifeTime.Seconds > configuration.ResendConfirmationCodeTimeInSeconds)
+				if (codeLifeTime.TotalSeconds > configuration.ConfirmationCodeLifeTimeInSeconds
+                    || codeLifeTime.TotalSeconds > configuration.ResendConfirmationCodeTimeInSeconds)
                 {
                     await confirmationCodeRepository.SavedEntity(
                         activeConfirmationCode with { Status = ConfirmationCodeStatus.Inactive });
@@ -87,11 +87,11 @@ namespace Domain.UseCases.RequireConfirmationCode
                         new RequireConfirmationCodeError(
                             RequireConfirmationCodeErrorType.ConfirmationCodeAlreadySent,
                             RemainingTemporaryBlockingTimeInSeconds: null,
-                            ErrorMessage: null));
+							Exception: null));
 				}
             }
 
-            var digitalCode = codeGeneration.DigitalCode(configuration.ConfirmationCodeLength);
+            var digitalCode = random.RandomInt(configuration.ConfirmationCodeLength).ToString();
             var sendResult = await smsService.SendSmsMessage(phoneNumber, digitalCode);
             if (!sendResult.Successful)
             {
@@ -99,7 +99,7 @@ namespace Domain.UseCases.RequireConfirmationCode
 					new RequireConfirmationCodeError(
 						RequireConfirmationCodeErrorType.Other,
 						RemainingTemporaryBlockingTimeInSeconds: null,
-						ErrorMessage: sendResult.ErrorMessage));
+						Exception: sendResult.Error));
 			}
 
             var confirmationCode = new ConfirmationCode(

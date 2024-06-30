@@ -17,15 +17,15 @@ namespace Domain.UseCases.SpecifyUserInfo.SkipProvisioningIdentityDocument
 			{
 				return new SkipProvisioningIdentityDocumentResult.Failure(
 					new SkipProvisioningIdentityDocumentError(
-						SkipProvisioningIdentityDocumentErrorType.UserNotFound, ErrorMessage: null));
+						SkipProvisioningIdentityDocumentErrorType.UserNotFound, Exception: null));
 			}
 
-			// TODO: save fake document
-
-			//user = await userRepository.SavedEntity(user with
-			//{
-			//	PinCode = pinCode,
-			//});
+			var identityDocument = new IdentityDocument(
+				Id: default,
+				userId,
+				Skipped: true,
+				Path: null);
+			await userRepository.SavedIdentityDocument(identityDocument);
 
 			var nextStep = provisioningUserData.NextStep(user);
 			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;

@@ -4,10 +4,14 @@ using ConfirmationCodeEntity = Domain.Entities.ConfirmationCodes.ConfirmationCod
 using ConfirmationCodeModel = Data.Production.Models.ConfirmationCode;
 using CountryEntity = Domain.Entities.Countries.Country;
 using CountryModel = Data.Production.Models.Country;
+using IdentityDocumentEntity = Domain.Entities.Users.IdentityDocument;
+using IdentityDocumentModel = Data.Production.Models.IdentityDocument;
 using PolicyDocumentEntity = Domain.Entities.PolicyDocuments.PolicyDocument;
 using PolicyDocumentModel = Data.Production.Models.PolicyDocument;
 using UserEntity = Domain.Entities.Users.User;
 using UserModel = Data.Production.Models.User;
+using UserResidenceAddressEntity = Domain.Entities.Users.UserResidenceAddress;
+using UserResidenceAddressModel = Data.Production.Models.UserResidenceAddress;
 using UserTemporaryBanEntity = Domain.Entities.Users.UserTemporaryBan;
 using UserTemporaryBanModel = Data.Production.Models.UserTemporaryBan;
 
@@ -73,6 +77,7 @@ namespace Data.Production.Mapping
 		public static CountryEntity ToEntity(this CountryModel model)
 		{
 			return new CountryEntity(
+				model.Id,
 				model.Name,
 				model.Iso2Code,
 				model.PhoneNumberCode,
@@ -82,13 +87,18 @@ namespace Data.Production.Mapping
 
 		public static CountryModel ToModel(this CountryEntity entity)
 		{
-			// TODO: Pass Id
 			return new CountryModel
 			{
+				Id = entity.Id,
 				Name = entity.Name,
 				Iso2Code = entity.Iso2Code,
 				PhoneNumberCode = entity.PhoneNumberCode,
 				FlagImagePath = entity.FlagImageUrl,
+				CountryPhoneNumberMasks = entity.PhoneNumberMasks.Select(item => new Models.CountryPhoneNumberMask
+				{
+					CountryId = entity.Id,
+					Mask = item
+				}).ToList()
 			};
 		}
 
@@ -133,6 +143,50 @@ namespace Data.Production.Mapping
 				UserId = entity.UserId,
 				StartDate = entity.StartDate,
 				DurationInSeconds = entity.DurationInSeconds,
+			};
+		}
+
+		public static UserResidenceAddressEntity ToEntity(this UserResidenceAddressModel model)
+		{
+			return new UserResidenceAddressEntity(
+				model.Id,
+				model.CountryId,
+				model.City,
+				model.Street,
+				model.BuildingNumber,
+				model.ApartmentNumber);
+		}
+
+		public static UserResidenceAddressModel ToModel(this UserResidenceAddressEntity entity)
+		{
+			return new UserResidenceAddressModel
+			{
+				Id = entity.Id,
+				CountryId = entity.CountryId,
+				City = entity.City,
+				Street = entity.Street,
+				BuildingNumber = entity.BuildingNumber,
+				ApartmentNumber = entity.ApartmentNumber,
+			};
+		}
+
+		public static IdentityDocumentEntity ToEntity(this IdentityDocumentModel model)
+		{
+			return new IdentityDocumentEntity(
+				model.Id,
+				model.UserId,
+				model.Skipped,
+				model.Path);
+		}
+
+		public static IdentityDocumentModel ToModel(this IdentityDocumentEntity entity)
+		{
+			return new IdentityDocumentModel
+			{
+				Id = entity.Id,
+				UserId = entity.UserId,
+				Skipped = entity.Skipped,
+				Path = entity.Path,
 			};
 		}
 	}

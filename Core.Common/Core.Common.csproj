@@ -10,4 +10,8 @@
     <PackageReference Include="NDice.Randomizers.Troschuetz" Version="0.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Repository\Domain.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

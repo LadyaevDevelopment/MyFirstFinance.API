@@ -1,8 +1,6 @@
-﻿using Domain.Services.SmsService;
-
-namespace Core.SmsService
+﻿namespace Core.Common.SmsService
 {
-	public class SmsRuService : ISmsService
+	public class SmsServiceMock : ISmsService
 	{
 		public Task<SendSmsMessageResult> SendSmsMessage(string phoneNumber, string message)
 		{

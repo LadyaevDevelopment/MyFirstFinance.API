@@ -21,13 +21,13 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyName
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.UserNotFound, ErrorMessage: null));
+						SpecifyUserInfoErrorType.UserNotFound, Exception: null));
 			}
 			if (user.FirstName != null)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.AlreadySpecified, ErrorMessage: null));
+						SpecifyUserInfoErrorType.AlreadySpecified, Exception: null));
 			}
 
 			lastName = lastName.Trim().ToLower();
@@ -40,7 +40,8 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyName
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.InvalidData, ErrorMessage: "Correct name must be not empty and can contain only letters"));
+						SpecifyUserInfoErrorType.InvalidData,
+						Exception: new Exception("Correct name must be not empty and can contain only letters")));
 			}
 			
 			user = await userRepository.SavedEntity(user with

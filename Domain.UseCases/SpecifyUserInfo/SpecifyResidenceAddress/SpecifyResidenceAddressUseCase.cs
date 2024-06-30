@@ -23,28 +23,30 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyResidenceAddress
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.UserNotFound, ErrorMessage: null));
+						SpecifyUserInfoErrorType.UserNotFound, Exception: null));
 			}
 			if (user.Email != null)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.AlreadySpecified, ErrorMessage: null));
+						SpecifyUserInfoErrorType.AlreadySpecified, Exception: null));
 			}
 
 			if (city.Length == 0 || street.Length == 0 || buildingNumber.Length == 0 || apartmentNumber.Length == 0)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.InvalidData, ErrorMessage: "Empty data field"));
+						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Empty data field")));
 			}
 
-			// TODO: add address
-
-			//user = await userRepository.SavedEntity(user with
-			//{
-			//	Email = email,
-			//});
+			var residenceAddress = new UserResidenceAddress(
+				Id: default,
+				countryId,
+				city,
+				street,
+				buildingNumber,
+				apartmentNumber);
+			await userRepository.SavedResidenceAddress(residenceAddress);
 
 			var nextStep = provisioningUserData.NextStep(user);
 			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;

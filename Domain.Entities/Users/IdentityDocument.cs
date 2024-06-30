@@ -2,6 +2,7 @@
 {
 	public record IdentityDocument(
 		Guid Id,
+		Guid UserId,
 		bool Skipped,
-		byte[] Content);
+		string? Path);
 }

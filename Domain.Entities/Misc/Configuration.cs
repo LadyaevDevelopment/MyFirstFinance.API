@@ -7,5 +7,6 @@
         int AllowedFailedCodeConfirmationAttemptCount,
         int ResendConfirmationCodeTimeInSeconds,
         int MinUserAge,
-        int PinCodeLength);
+        int PinCodeLength,
+        string UploadsDirectoryPath);
 }

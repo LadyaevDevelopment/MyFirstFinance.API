@@ -3,7 +3,7 @@ using Domain.Repository;
 
 namespace Data.Mock.Users
 {
-    public class UserRepositoryMock : IUserRepository
+	public class UserRepositoryMock : IUserRepository
     {
         private readonly static User Entity = new(
             Guid.NewGuid(),
@@ -53,14 +53,34 @@ namespace Data.Mock.Users
             return Task.FromResult(entityToSave);
         }
 
-		public Task<bool> RemoveBanById(Guid id)
+		public Task<bool> RemoveTemporaryBanById(Guid id)
 		{
 			return Task.FromResult(true);
 		}
 
-		public Task<UserTemporaryBan> SavedTemporaryBan(UserTemporaryBan item)
+		public Task<UserTemporaryBan> SavedTemporaryBan(UserTemporaryBan itemToSave)
 		{
-			return Task.FromResult(item);
+			return Task.FromResult(itemToSave);
+		}
+
+		public Task<UserResidenceAddress> SavedResidenceAddress(UserResidenceAddress itemToSave)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> RemoveResidenceAddressById(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IdentityDocument> SavedIdentityDocument(IdentityDocument itemToSave)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> RemoveIdentityDocumentById(Guid id)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

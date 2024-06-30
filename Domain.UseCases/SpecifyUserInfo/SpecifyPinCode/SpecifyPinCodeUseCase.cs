@@ -17,26 +17,26 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyPinCode
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.UserNotFound, ErrorMessage: null));
+						SpecifyUserInfoErrorType.UserNotFound, Exception: null));
 			}
 			if (user.Email != null)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.AlreadySpecified, ErrorMessage: null));
+						SpecifyUserInfoErrorType.AlreadySpecified, Exception: null));
 			}
 
 			if (pinCode.Length != configuration.PinCodeLength)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.InvalidData, ErrorMessage: "Wrong pin code length"));
+						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Wrong pin code length")));
 			}
 			if (pinCode.Any(item => !char.IsDigit(item)))
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.InvalidData, ErrorMessage: "Invalid pin code format"));
+						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Invalid pin code format")));
 			}
 
 			user = await userRepository.SavedEntity(user with

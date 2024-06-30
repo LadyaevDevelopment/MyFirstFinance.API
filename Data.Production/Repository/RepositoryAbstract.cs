@@ -19,10 +19,14 @@ namespace Data.Production.Repository
 		protected abstract TEntity ToEntity(TDbModel model);
 
 		protected abstract TDbModel ToModel(TEntity entity);
-		
+
 		protected abstract IQueryable<TDbModel> BuildFilterQuery(IQueryable<TDbModel> items, TSearchParams searchParams);
 
 		protected virtual IQueryable<TDbModel> BuildDependencies(IQueryable<TDbModel> items) => items;
+
+		protected virtual bool NeedToConfigureAfterSaving { get; }
+
+		protected virtual Task ConfigureAfterSaving(TDbModel model) => Task.CompletedTask;
 
 		protected abstract Expression<Func<TDbModel, Guid>> IdByDbModelExpression();
 
@@ -122,6 +126,15 @@ namespace Data.Production.Repository
 			}
 			await DbContext.SaveChangesAsync();
 
+			if (NeedToConfigureAfterSaving)
+			{
+				foreach (var item in savedItems)
+				{
+					await ConfigureAfterSaving(item);
+				}
+				await DbContext.SaveChangesAsync();
+			}
+
 			return savedItems.Select(ToEntity).ToList();
 		}
 
@@ -140,6 +153,12 @@ namespace Data.Production.Repository
 			}
 
 			await DbContext.SaveChangesAsync();
+
+			if (NeedToConfigureAfterSaving)
+			{
+				await ConfigureAfterSaving(savedItem);
+				await DbContext.SaveChangesAsync();
+			}
 
 			return ToEntity(savedItem);
 		}

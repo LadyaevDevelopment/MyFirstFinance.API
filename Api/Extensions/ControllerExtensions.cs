@@ -1,4 +1,5 @@
 ﻿using Api.Authentication;
+using Core.Common.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Extensions
@@ -10,7 +11,7 @@ namespace Api.Extensions
 			return ((controller?.User?.Identity as ApiClientIdentity)?.ClientData as ApiUserModel<TEntity>)?.Entity;
 		}
 
-		public static ApiUserModel? ApiUser(this ControllerBase controller)
+		public static AuthorizedUserModel? User(this ControllerBase controller)
 		{
 			return (controller?.User?.Identity as ApiClientIdentity)?.ClientData;
 		}

@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Core.Common.Email;
 using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.Repository;
@@ -9,6 +9,7 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyEmail
 	public class SpecifyEmailUseCase(
 		IUserRepository userRepository,
 		ProvisioningUserData provisioningUserData,
+		IEmailValidation emailValidation,
 		Configuration configuration)
 	{
 		public async Task<SpecifyUserInfoResult> Process(Guid userId, string email)
@@ -18,20 +19,20 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyEmail
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.UserNotFound, ErrorMessage: null));
+						SpecifyUserInfoErrorType.UserNotFound, Exception: null));
 			}
 			if (user.Email != null)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.AlreadySpecified, ErrorMessage: null));
+						SpecifyUserInfoErrorType.AlreadySpecified, Exception: null));
 			}
 
-			if (!Helpers.IsEmailValid(email))
+			if (!emailValidation.IsValid(email))
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.InvalidData, ErrorMessage: "Invalid e-mail format"));
+						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Invalid e-mail format")));
 			}
 
 			user = await userRepository.SavedEntity(user with

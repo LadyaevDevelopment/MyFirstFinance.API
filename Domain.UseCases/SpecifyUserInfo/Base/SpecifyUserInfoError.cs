@@ -2,5 +2,5 @@
 {
 	public record SpecifyUserInfoError(
 		SpecifyUserInfoErrorType ErrorType,
-		string? ErrorMessage);
+		Exception? Exception);
 }

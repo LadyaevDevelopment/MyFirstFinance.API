@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Misc;
+﻿using Core.Common.FileService;
+using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.Repository;
 using Domain.UseCases.SpecifyUserInfo.Base;
@@ -8,6 +9,7 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyIdentityDocument
 	public class SpecifyIdentityDocumentUseCase(
 		IUserRepository userRepository,
 		ProvisioningUserData provisioningUserData,
+		IFileService fileService,
 		Configuration configuration)
 	{
 		public async Task<SpecifyUserInfoResult> Process(Guid userId, byte[] content)
@@ -17,21 +19,29 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyIdentityDocument
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.UserNotFound, ErrorMessage: null));
+						SpecifyUserInfoErrorType.UserNotFound, Exception: null));
 			}
 			if (user.Email != null)
 			{
 				return new SpecifyUserInfoResult.Failure(
 					new SpecifyUserInfoError(
-						SpecifyUserInfoErrorType.AlreadySpecified, ErrorMessage: null));
+						SpecifyUserInfoErrorType.AlreadySpecified, Exception: null));
 			}
 
-			// TODO: save document
+			var result = await fileService.SavedFile(content, configuration.UploadsDirectoryPath);
+			if (!result.Successful)
+			{
+				return new SpecifyUserInfoResult.Failure(
+					new SpecifyUserInfoError(
+						SpecifyUserInfoErrorType.Other, Exception: result.Error));
+			}
 
-			//user = await userRepository.SavedEntity(user with
-			//{
-			//	PinCode = pinCode,
-			//});
+			var identityDocument = new IdentityDocument(
+				Id: default,
+				userId,
+				Skipped: false,
+				result.Data!.Path);
+			await userRepository.SavedIdentityDocument(identityDocument);
 
 			var nextStep = provisioningUserData.NextStep(user);
 			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;

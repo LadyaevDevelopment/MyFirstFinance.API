@@ -5,5 +5,6 @@
 		AlreadySpecified = 1,
 		UserNotFound = 2,
 		InvalidData = 3,
+		Other = 4,
 	}
 }
