@@ -1,11 +1,14 @@
 ﻿using Core.Common.DateTimeNow;
+using Core.Common.PhoneNumber;
 using Core.Common.Random;
 using Core.Common.SmsService;
 using Data.Production.Context;
 using Data.Production.Mapping;
 using Data.Production.Repository.ConfirmationCodes;
+using Data.Production.Repository.Countries;
 using Data.Production.Repository.Users;
 using Domain.Entities.ConfirmationCodes;
+using Domain.Entities.Countries;
 using Domain.Entities.Misc;
 using Domain.Entities.Users;
 using Domain.UseCases.RequireConfirmationCode;
@@ -19,8 +22,10 @@ namespace Domain.UseCases.Tests
 		private readonly DefaultDbContext _context;
 		private readonly UserRepository _userRepository;
 		private readonly ConfirmationCodeRepository _confirmationCodeRepository;
+		private readonly CountryRepository _countryRepository;
 
 		private readonly Mock<ISmsService> _smsServiceMock;
+		private readonly Mock<IPhoneNumberValidation> _phoneNumberValidation;
 		private readonly Mock<IRandom> _randomMock;
 		private readonly Mock<IDateTimeNow> _dateTimeNowMock;
 		private readonly Configuration _configuration;
@@ -34,8 +39,10 @@ namespace Domain.UseCases.Tests
 			_context = new DefaultDbContext(options);
 			_userRepository = new UserRepository(_context);
 			_confirmationCodeRepository = new ConfirmationCodeRepository(_context);
+			_countryRepository = new CountryRepository(_context);
 
 			_smsServiceMock = new Mock<ISmsService>();
+			_phoneNumberValidation = new Mock<IPhoneNumberValidation>();
 
 			_randomMock = new Mock<IRandom>();
 			_dateTimeNowMock = new Mock<IDateTimeNow>();
@@ -58,7 +65,9 @@ namespace Domain.UseCases.Tests
 				_randomMock.Object,
 				_confirmationCodeRepository,
 				_userRepository,
+				_countryRepository,
 				_dateTimeNowMock.Object,
+				_phoneNumberValidation.Object,
 				_configuration);
 		}
 
@@ -66,7 +75,9 @@ namespace Domain.UseCases.Tests
 		public async Task Process_UserBlocked_ReturnsFailure()
 		{
 			// Arrange
-			var phoneNumber = "+598 1-111-11-11";
+			var phoneNumberCode = "+598";
+			var phoneNumber = "1-111-11-11";
+			var fullPhoneNumber = phoneNumberCode + " " + phoneNumber;
 			var user = new User(
 				Id: Guid.NewGuid(),
 				LastName: "LastName",
@@ -74,7 +85,7 @@ namespace Domain.UseCases.Tests
 				MiddleName: null,
 				BirthDate: null,
 				PinCode: null,
-				PhoneNumber: phoneNumber,
+				PhoneNumber: fullPhoneNumber,
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: true,
@@ -83,8 +94,15 @@ namespace Domain.UseCases.Tests
 			_context.Users.Add(user.ToModel());
 			await _context.SaveChangesAsync();
 
+			_phoneNumberValidation
+				.Setup(service => service.ValidPhoneNumberOrNull(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Country>>()))
+				.Returns<string, string, List<Country>>((phoneNumberCode, phoneNumber, countries) =>
+				{
+					return phoneNumberCode + " " + phoneNumber;
+				});
+
 			// Act
-			var result = await _useCase.Process(phoneNumber);
+			var result = await _useCase.Process(phoneNumberCode, phoneNumber);
 
 			// Assert
 			Assert.False(result.Successful);
@@ -96,7 +114,9 @@ namespace Domain.UseCases.Tests
 		public async Task Process_UserTemporarilyBlocked_ReturnsFailure()
 		{
 			// Arrange
-			var phoneNumber = "+44 11-1111-1111";
+			var phoneNumberCode = "+44";
+			var phoneNumber = "11-1111-1111";
+			var fullPhoneNumber = phoneNumberCode + " " + phoneNumber;
 			var user = new User(
 				Id: Guid.NewGuid(),
 				LastName: "LastName",
@@ -104,7 +124,7 @@ namespace Domain.UseCases.Tests
 				MiddleName: null,
 				BirthDate: null,
 				PinCode: null,
-				PhoneNumber: phoneNumber,
+				PhoneNumber: fullPhoneNumber,
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
@@ -120,8 +140,15 @@ namespace Domain.UseCases.Tests
 			_context.UserTemporaryBans.Add(userTemporaryBan.ToModel());
 			await _context.SaveChangesAsync();
 
+			_phoneNumberValidation
+				.Setup(service => service.ValidPhoneNumberOrNull(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Country>>()))
+				.Returns<string, string, List<Country>>((phoneNumberCode, phoneNumber, countries) =>
+				{
+					return phoneNumberCode + " " + phoneNumber;
+				});
+
 			// Act
-			var result = await _useCase.Process(phoneNumber);
+			var result = await _useCase.Process(phoneNumberCode, phoneNumber);
 
 			// Assert
 			Assert.False(result.Successful);
@@ -133,7 +160,9 @@ namespace Domain.UseCases.Tests
 		public async Task Process_ConfirmationCodeAlreadySent_ReturnsFailure()
 		{
 			// Arrange
-			var phoneNumber = "+376 111-111";
+			var phoneNumberCode = "+376";
+			var phoneNumber = "111-111";
+			var fullPhoneNumber = phoneNumberCode + " " + phoneNumber;
 			var user = new User(
 				Id: Guid.NewGuid(),
 				LastName: "LastName",
@@ -141,7 +170,7 @@ namespace Domain.UseCases.Tests
 				MiddleName: null,
 				BirthDate: null,
 				PinCode: null,
-				PhoneNumber: phoneNumber,
+				PhoneNumber: fullPhoneNumber,
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
@@ -159,8 +188,15 @@ namespace Domain.UseCases.Tests
 			_context.ConfirmationCodes.Add(activeConfirmationCode.ToModel());
 			await _context.SaveChangesAsync();
 
+			_phoneNumberValidation
+				.Setup(service => service.ValidPhoneNumberOrNull(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Country>>()))
+				.Returns<string, string, List<Country>>((phoneNumberCode, phoneNumber, countries) =>
+				{
+					return phoneNumberCode + " " + phoneNumber;
+				});
+
 			// Act
-			var result = await _useCase.Process(phoneNumber);
+			var result = await _useCase.Process(phoneNumberCode, phoneNumber);
 
 			// Assert
 			Assert.False(result.Successful);
@@ -172,29 +208,23 @@ namespace Domain.UseCases.Tests
 		public async Task Process_SmsServiceFails_ReturnsFailure()
 		{
 			// Arrange
-			var phoneNumber = "+672 311-111";
-			var user = new User(
-				Id: Guid.NewGuid(),
-				LastName: "LastName",
-				FirstName: "FirstName",
-				MiddleName: null,
-				BirthDate: null,
-				PinCode: null,
-				PhoneNumber: phoneNumber,
-				Email: null,
-				AvatarPath: null,
-				IsBlocked: false,
-				Status: UserStatus.NeedToSpecifyBirthDate);
-
-			_context.Users.Add(user.ToModel());
-			await _context.SaveChangesAsync();
+			var phoneNumberCode = "+672";
+			var phoneNumber = "311-111";
+			var fullPhoneNumber = phoneNumberCode + " " + phoneNumber;
 
 			_smsServiceMock
 				.Setup(service => service.SendSmsMessage(It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(new SendSmsMessageResult.Failure(new Exception("Sms service error")));
 
+			_phoneNumberValidation
+				.Setup(service => service.ValidPhoneNumberOrNull(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Country>>()))
+				.Returns<string, string, List<Country>>((phoneNumberCode, phoneNumber, countries) =>
+				{
+					return phoneNumberCode + " " + phoneNumber;
+				});
+
 			// Act
-			var result = await _useCase.Process(phoneNumber);
+			var result = await _useCase.Process(phoneNumberCode, phoneNumber);
 
 			// Assert
 			Assert.False(result.Successful);
@@ -206,22 +236,19 @@ namespace Domain.UseCases.Tests
 		public async Task Process_Successful_ReturnsSuccess()
 		{
 			// Arrange
-			var phoneNumber = "+49 111-111";
-			var user = new User(
-				Id: Guid.NewGuid(),
-				LastName: "LastName",
-				FirstName: "FirstName",
-				MiddleName: null,
-				BirthDate: null,
-				PinCode: null,
-				PhoneNumber: phoneNumber,
-				Email: null,
-				AvatarPath: null,
-				IsBlocked: false,
-				Status: UserStatus.NeedToSpecifyBirthDate);
+			var phoneNumberCode = "+49";
+			var phoneNumber = "111-111";
+			var fullPhoneNumber = phoneNumberCode + " " + phoneNumber;
 
 			var digitalCode = int.Parse("1" + new string(Enumerable.Repeat('0', _configuration.ConfirmationCodeLength - 1).ToArray()));
 			_randomMock.Setup(r => r.RandomInt(_configuration.ConfirmationCodeLength)).Returns(digitalCode);
+
+			_phoneNumberValidation
+				.Setup(service => service.ValidPhoneNumberOrNull(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Country>>()))
+				.Returns<string, string, List<Country>>((phoneNumberCode, phoneNumber, countries) =>
+				{
+					return phoneNumberCode + " " + phoneNumber;
+				});
 
 			_smsServiceMock
 				.Setup(service => service.SendSmsMessage(
@@ -230,7 +257,7 @@ namespace Domain.UseCases.Tests
 				.ReturnsAsync(new SendSmsMessageResult.Success());
 
 			// Act
-			var result = await _useCase.Process(phoneNumber);
+			var result = await _useCase.Process(phoneNumberCode, phoneNumber);
 
 			// Assert
 			Assert.True(result.Successful);

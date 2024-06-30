@@ -2,6 +2,7 @@
 using Core.Common.DateTimeNow;
 using Core.Common.Email;
 using Core.Common.FileService;
+using Core.Common.PhoneNumber;
 using Core.Common.Random;
 using Core.Common.SmsService;
 using Core.Common.TokenGenerator;
@@ -47,6 +48,7 @@ namespace Core.DI
 			services.AddScoped<ISmsService, SmsServiceMock>();
 			services.AddScoped<IFileService, IFileService.Base>();
 			services.AddScoped<IEmailValidation, IEmailValidation.Base>();
+			services.AddScoped<IPhoneNumberValidation, IPhoneNumberValidation.Base>();
 			services.AddSingleton<ITokenGenerator>(_ => new ITokenGenerator.Base(
 				new AesCryptoServiceProvider(),
 				"Frh!zp0IqSz2KxkV",

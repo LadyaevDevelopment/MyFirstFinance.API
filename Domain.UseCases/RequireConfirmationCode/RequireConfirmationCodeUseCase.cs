@@ -1,4 +1,5 @@
 ﻿using Core.Common.DateTimeNow;
+using Core.Common.PhoneNumber;
 using Core.Common.Random;
 using Core.Common.SmsService;
 using Domain.Entities.ConfirmationCodes;
@@ -13,14 +14,28 @@ namespace Domain.UseCases.RequireConfirmationCode
 		IRandom random,
 		IConfirmationCodeRepository confirmationCodeRepository,
 		IUserRepository userRepository,
+		ICountryRepository countryRepository,
 		IDateTimeNow dateTimeNow,
+        IPhoneNumberValidation phoneNumberValidation,
 		Configuration configuration)
     {
-        public async Task<RequireConfirmationCodeResult> Process(string phoneNumber)
+        public async Task<RequireConfirmationCodeResult> Process(string countryPhoneCode, string phoneNumber)
         {
-            var user = (await userRepository.FilteredEntities(new UserSearchParams
+            var countries = await countryRepository.FilteredEntities(new());
+
+			var validPhoneNumber = phoneNumberValidation.ValidPhoneNumberOrNull(countryPhoneCode, phoneNumber, countries);
+            if (validPhoneNumber is null)
             {
-                PhoneNumber = phoneNumber,
+				return new RequireConfirmationCodeResult.Failure(
+	                new RequireConfirmationCodeError(
+		                RequireConfirmationCodeErrorType.Other,
+		                RemainingTemporaryBlockingTimeInSeconds: null,
+		                Exception: new Exception("Invalid phone number format")));
+			}
+
+			var user = (await userRepository.FilteredEntities(new UserSearchParams
+            {
+                PhoneNumber = validPhoneNumber,
             })).FirstOrDefault();
             if (user is null)
             {
@@ -31,7 +46,7 @@ namespace Domain.UseCases.RequireConfirmationCode
                     MiddleName: null,
                     BirthDate: null,
                     PinCode: null,
-                    PhoneNumber: phoneNumber,
+                    PhoneNumber: validPhoneNumber,
                     Email: null,
                     AvatarPath: null,
                     IsBlocked: false,
@@ -92,7 +107,7 @@ namespace Domain.UseCases.RequireConfirmationCode
             }
 
             var digitalCode = random.RandomInt(configuration.ConfirmationCodeLength).ToString();
-            var sendResult = await smsService.SendSmsMessage(phoneNumber, digitalCode);
+            var sendResult = await smsService.SendSmsMessage(validPhoneNumber, digitalCode);
             if (!sendResult.Successful)
             {
 				return new RequireConfirmationCodeResult.Failure(

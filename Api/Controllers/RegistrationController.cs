@@ -163,10 +163,9 @@ namespace Api.Controllers
 		{
 			var userId = this.User()!.Id;
 
-			// TODO: fix
 			var result = await specifyResidenceAddressUseCase.Process(
 				userId,
-				Guid.NewGuid(),
+				request.CountryId,
 				request.City,
 				request.Street,
 				request.BuildingNumber,

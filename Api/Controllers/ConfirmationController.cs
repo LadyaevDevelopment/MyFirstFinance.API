@@ -23,7 +23,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>> RequireConfirmationCode(
 			RequireConfirmationCodeRequest request)
 		{
-			var result = await requireConfirmationCodeUseCase.Process(request.CountryPhoneCode + request.PhoneNumber);
+			var result = await requireConfirmationCodeUseCase.Process(request.CountryPhoneCode, request.PhoneNumber);
 			if (result.Successful)
 			{
 				return new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
