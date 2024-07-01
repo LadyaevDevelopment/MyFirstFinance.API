@@ -121,5 +121,11 @@ namespace Data.Production.Repository.Users
 			}
 			return false;
 		}
+
+		public async Task<IdentityDocument?> IdentityDocument(Guid userId)
+		{
+			var item = await DbContext.IdentityDocuments.FirstOrDefaultAsync(item => item.UserId == userId);
+			return item?.ToEntity();
+		}
 	}
 }

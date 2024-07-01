@@ -11,7 +11,7 @@ public partial class IdentityDocument
 
     public bool Skipped { get; set; }
 
-    public string Path { get; set; } = null!;
+    public string? Path { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

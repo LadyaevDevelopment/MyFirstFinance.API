@@ -12,6 +12,8 @@ namespace Domain.Repository
 
 		Task<bool> RemoveResidenceAddressById(Guid id);
 
+		Task<IdentityDocument?> IdentityDocument(Guid userId);
+
 		Task<IdentityDocument> SavedIdentityDocument(IdentityDocument itemToSave);
 
 		Task<bool> RemoveIdentityDocumentById(Guid id);

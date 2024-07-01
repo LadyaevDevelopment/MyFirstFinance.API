@@ -179,7 +179,7 @@ namespace Domain.UseCases.Tests
 			var activeConfirmationCode = new ConfirmationCode(
 				Id: Guid.NewGuid(),
 				UserId: user.Id,
-				Code: "1234",
+				Code: "123456",
 				CreationDate: _dateTimeNowMock.Object.Now.AddSeconds(-60),
 				Status: ConfirmationCodeStatus.Active,
 				FailedCodeConfirmationAttemptCount: 0);

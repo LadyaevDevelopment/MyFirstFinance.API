@@ -20,6 +20,15 @@ namespace Domain.UseCases.SpecifyUserInfo.SkipProvisioningIdentityDocument
 						SkipProvisioningIdentityDocumentErrorType.UserNotFound, Exception: null));
 			}
 
+			var existingIdentityDocument = await userRepository.IdentityDocument(userId);
+			if (existingIdentityDocument?.Skipped == false)
+			{
+				return new SkipProvisioningIdentityDocumentResult.Failure(
+					new SkipProvisioningIdentityDocumentError(
+						SkipProvisioningIdentityDocumentErrorType.Other,
+						Exception: new Exception("The identity document has been already specified")));
+			}
+
 			var identityDocument = new IdentityDocument(
 				Id: default,
 				userId,

@@ -82,5 +82,10 @@ namespace Data.Mock.Users
 		{
 			throw new NotImplementedException();
 		}
+
+		public Task<IdentityDocument?> IdentityDocument(Guid userId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

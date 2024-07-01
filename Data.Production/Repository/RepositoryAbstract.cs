@@ -58,10 +58,16 @@ namespace Data.Production.Repository
 			return Expression.Lambda<Func<TDbModel, bool>>(containsCall, parameter);
 		}
 
-		public async Task<TEntity?> EntityById(Guid id)
+		private async Task<TDbModel?> ModelById(Guid id)
 		{
 			var item = await BuildDependencies(DbContext.Set<TDbModel>().Where(FilterDbModelByIdExpression(id)))
 				.FirstOrDefaultAsync();
+			return item;
+		}
+
+		public async Task<TEntity?> EntityById(Guid id)
+		{
+			var item = await ModelById(id);
 			return item is null ? null : ToEntity(item);
 		}
 
@@ -114,7 +120,7 @@ namespace Data.Production.Repository
 			var savedItems = entitiesToSave.Select(ToModel);
 			foreach (var item in savedItems)
 			{
-				var existingItem = await EntityById(IdByModel(item));
+				var existingItem = await ModelById(IdByModel(item));
 				if (existingItem != null)
 				{
 					DbContext.Entry(existingItem).CurrentValues.SetValues(item);
@@ -142,7 +148,7 @@ namespace Data.Production.Repository
 		{
 			var savedItem = ToModel(entityToSave);
 
-			var existingItem = await EntityById(IdByModel(savedItem));
+			var existingItem = await ModelById(IdByModel(savedItem));
 			if (existingItem != null)
 			{
 				DbContext.Entry(existingItem).CurrentValues.SetValues(savedItem);
