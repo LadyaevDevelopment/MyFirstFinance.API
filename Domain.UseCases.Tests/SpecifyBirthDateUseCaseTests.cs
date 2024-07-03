@@ -31,7 +31,7 @@ namespace Domain.UseCases.Tests
 
 			_dateTimeNowMock = new Mock<IDateTimeNow>();
 			_dateTimeNowMock.Setup(dateTime => dateTime.Now)
-				.Returns(DateTime.UtcNow);
+				.Returns(DateTimeOffset.UtcNow);
 
 			_provisioningUserData = new ProvisioningUserData.Base();
 
@@ -68,7 +68,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			_context.Users.Add(user.ToModel());
@@ -92,13 +92,13 @@ namespace Domain.UseCases.Tests
 				LastName: "LastName",
 				FirstName: "FirstName",
 				MiddleName: null,
-				BirthDate: DateOnly.FromDateTime(_dateTimeNowMock.Object.Now),
+				BirthDate: DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.DateTime),
 				PinCode: null,
 				PhoneNumber: "+228 11-111-111",
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyName);
 
 			_context.Users.Add(user.ToModel());
@@ -128,14 +128,14 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			_context.Users.Add(user.ToModel());
 			await _context.SaveChangesAsync();
 
 			// Act
-			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.AddDays(1)));
+			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.DateTime.AddDays(1)));
 
 			// Assert
 			Assert.False(result.Successful);
@@ -158,14 +158,14 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			_context.Users.Add(user.ToModel());
 			await _context.SaveChangesAsync();
 
 			// Act
-			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.AddYears(-17)));
+			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.DateTime.AddYears(-17)));
 
 			// Assert
 			Assert.False(result.Successful);
@@ -188,14 +188,14 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			_context.Users.Add(user.ToModel());
 			await _context.SaveChangesAsync();
 
 			// Act
-			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.AddYears(-18)));
+			var result = await _useCase.Process(user.Id, DateOnly.FromDateTime(_dateTimeNowMock.Object.Now.DateTime.AddYears(-18)));
 
 			// Assert
 			Assert.True(result.Successful);

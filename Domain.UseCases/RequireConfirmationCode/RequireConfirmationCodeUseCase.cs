@@ -50,7 +50,7 @@ namespace Domain.UseCases.RequireConfirmationCode
                     Email: null,
                     AvatarPath: null,
                     IsBlocked: false,
-                    RegistrationDate: DateTime.Now,
+                    RegistrationDate: DateTimeOffset.Now,
                     Status: UserStatus.NeedToSpecifyBirthDate);
 				user = await userRepository.SavedEntity(user);
 			}

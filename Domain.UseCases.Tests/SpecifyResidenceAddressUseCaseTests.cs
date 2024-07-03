@@ -64,7 +64,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyResidenceAddress);
 			
 			var country = new Country(

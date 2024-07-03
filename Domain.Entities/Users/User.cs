@@ -11,7 +11,7 @@
         string? Email,
         string? AvatarPath,
         bool IsBlocked,
-        DateTime RegistrationDate,
+        DateTimeOffset RegistrationDate,
         UserStatus Status)
     {
         public List<UserTemporaryBan> UserTemporaryBans { get; set; } = [];

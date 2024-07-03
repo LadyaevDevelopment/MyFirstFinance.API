@@ -1,0 +1,1273 @@
+{
+	"info": {
+		"_postman_id": "3af1966f-2851-4577-a249-0a8065a3622f",
+		"name": "MyFirstFinance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13360325"
+	},
+	"item": [
+		{
+			"name": "Confirmation",
+			"item": [
+				{
+					"name": "RequireConfirmationCode",
+					"item": [
+						{
+							"name": "/Confirmation/RequireConfirmationCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains confirmation code details\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.responseData).to.have.property('confirmationCodeId');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('confirmationCodeLength');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('resendTimeInSeconds');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('allowedCodeConfirmationAttemptCount');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('confirmationCodeLifeTimeInSeconds');\r",
+											"\r",
+											"    pm.environment.set(\"confirmationCodeId\", jsonData.responseData.confirmationCodeId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryPhoneCode\": \"{{countryPhoneNumberCode}}\",\n  \"phoneNumber\": \"{{phoneNumber}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Confirmation/RequireConfirmationCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Confirmation",
+										"RequireConfirmationCode"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"countryPhoneCode\": \"<string>\",\n  \"phoneNumber\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Confirmation/RequireConfirmationCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Confirmation",
+												"RequireConfirmationCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"confirmationCodeId\": \"<uuid>\",\n    \"confirmationCodeLength\": \"<integer>\",\n    \"resendTimeInSeconds\": \"<integer>\",\n    \"allowedCodeConfirmationAttemptCount\": \"<integer>\",\n    \"confirmationCodeLifeTimeInSeconds\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null,\n    \"remainingTemporaryBlockingTimeInSeconds\": \"<integer>\"\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "VerifyConfirmationCode",
+					"item": [
+						{
+							"name": "/Confirmation/VerifyConfirmationCode",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"confirmationCode\", \"123456\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains user details and token\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.responseData).to.have.property('userId');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('accessToken');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('userStatus');\r",
+											"\r",
+											"    pm.environment.set(\"accessToken\", jsonData.responseData.accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"confirmationCode\": \"{{confirmationCode}}\",\n  \"confirmationCodeId\": \"{{confirmationCodeId}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Confirmation/VerifyConfirmationCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Confirmation",
+										"VerifyConfirmationCode"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"confirmationCode\": \"<string>\",\n  \"confirmationCodeId\": \"<uuid>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Confirmation/VerifyConfirmationCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Confirmation",
+												"VerifyConfirmationCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"accessToken\": \"<string>\",\n    \"userId\": \"<uuid>\",\n    \"userStatus\": null\n  },\n  \"error\": {\n    \"errorType\": null,\n    \"temporaryBlockingTimeInSeconds\": \"<integer>\"\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Misc",
+			"item": [
+				{
+					"name": "PolicyDocuments",
+					"item": [
+						{
+							"name": "/Misc/PolicyDocuments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains documents\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.responseData.documents).to.be.an('array');\r",
+											"    pm.expect(jsonData.responseData.documents.length).to.be.greaterThan(0);\r",
+											"    jsonData.responseData.documents.forEach(function (document) {\r",
+											"        pm.expect(document).to.have.property('title');\r",
+											"        pm.expect(document).to.have.property('url');\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Misc/PolicyDocuments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Misc",
+										"PolicyDocuments"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Misc/PolicyDocuments",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Misc",
+												"PolicyDocuments"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"documents\": [\n      {\n        \"title\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      {\n        \"title\": \"<string>\",\n        \"url\": \"<string>\"\n      }\n    ]\n  },\n  \"error\": {\n    \"nullable\": true\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Countries",
+					"item": [
+						{
+							"name": "/Misc/Countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains countries\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.responseData.countries).to.be.an('array');\r",
+											"    pm.expect(jsonData.responseData.countries.length).to.be.greaterThan(0);\r",
+											"    jsonData.responseData.countries.forEach(function (country) {\r",
+											"        pm.expect(country).to.have.property('id');\r",
+											"        pm.expect(country).to.have.property('name');\r",
+											"        pm.expect(country).to.have.property('phoneNumberCode');\r",
+											"        pm.expect(country).to.have.property('flagImageUrl');\r",
+											"        pm.expect(country).to.have.property('phoneNumberMasks');\r",
+											"        pm.expect(country.phoneNumberMasks).to.be.an('array');\r",
+											"        pm.expect(country.phoneNumberMasks.length).to.be.greaterThan(0);\r",
+											"    });\r",
+											"\r",
+											"    const firstCountry = jsonData.responseData.countries[0];\r",
+											"    const countryPhoneNumberCode = firstCountry.phoneNumberCode;\r",
+											"    const phoneNumberMask = firstCountry.phoneNumberMasks[0];\r",
+											"    const phoneNumber = phoneNumberMask.replace(/#/g, '1');\r",
+											"\r",
+											"    pm.environment.set(\"countryPhoneNumberCode\", countryPhoneNumberCode);\r",
+											"    pm.environment.set(\"phoneNumber\", phoneNumber);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Misc/Countries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Misc",
+										"Countries"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Misc/Countries",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Misc",
+												"Countries"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"countries\": [\n      {\n        \"flagImageUrl\": \"<string>\",\n        \"name\": \"<string>\",\n        \"phoneNumberCode\": \"<string>\",\n        \"phoneNumberMasks\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"id\": \"<uuid>\"\n      },\n      {\n        \"flagImageUrl\": \"<string>\",\n        \"name\": \"<string>\",\n        \"phoneNumberCode\": \"<string>\",\n        \"phoneNumberMasks\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"id\": \"<uuid>\"\n      }\n    ]\n  },\n  \"error\": {\n    \"nullable\": true\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Addresses",
+					"item": [
+						{
+							"name": "/Misc/Addresses",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Misc/Addresses?CountryIso2Code=<string>&SearchQuery=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Misc",
+										"Addresses"
+									],
+									"query": [
+										{
+											"key": "CountryIso2Code",
+											"value": "<string>"
+										},
+										{
+											"key": "SearchQuery",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Misc/Addresses?CountryIso2Code=<string>&SearchQuery=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Misc",
+												"Addresses"
+											],
+											"query": [
+												{
+													"key": "CountryIso2Code",
+													"value": "<string>"
+												},
+												{
+													"key": "SearchQuery",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"addresses\": [\n      {\n        \"buildingNumber\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"street\": \"<string>\"\n      },\n      {\n        \"buildingNumber\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"street\": \"<string>\"\n      }\n    ]\n  },\n  \"error\": {\n    \"nullable\": true\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Registration",
+			"item": [
+				{
+					"name": "SpecifyBirthDate",
+					"item": [
+						{
+							"name": "/Registration/SpecifyBirthDate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"birthDate\", \"2002-06-15\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response has allDataProvided and nextStep fields\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('status');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('allDataProvided');\r",
+											"    pm.expect(jsonData.responseData).to.have.property('nextStep');\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"date\": \"{{birthDate}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyBirthDate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyBirthDate"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"date\": {\n    \"year\": \"<integer>\",\n    \"month\": \"<integer>\",\n    \"day\": \"<integer>\",\n    \"dayOfWeek\": null,\n    \"dayOfYear\": \"<integer>\",\n    \"dayNumber\": \"<integer>\"\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyBirthDate",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyBirthDate"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SpecifyName",
+					"item": [
+						{
+							"name": "/Registration/SpecifyName",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"middleName\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyName"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"middleName\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyName",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyName"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SpecifyEmail",
+					"item": [
+						{
+							"name": "/Registration/SpecifyEmail",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyEmail",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyEmail"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyEmail",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyEmail"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SpecifyResidenceAddress",
+					"item": [
+						{
+							"name": "/Registration/SpecifyResidenceAddress",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": \"<uuid>\",\n  \"city\": \"<string>\",\n  \"street\": \"<string>\",\n  \"buildingNumber\": \"<string>\",\n  \"apartmentNumber\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyResidenceAddress",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyResidenceAddress"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"countryId\": \"<uuid>\",\n  \"city\": \"<string>\",\n  \"street\": \"<string>\",\n  \"buildingNumber\": \"<string>\",\n  \"apartmentNumber\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyResidenceAddress",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyResidenceAddress"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SpecifyPinCode",
+					"item": [
+						{
+							"name": "/Registration/SpecifyPinCode",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"pinCode\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyPinCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyPinCode"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"pinCode\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyPinCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyPinCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SpecifyIdentityDocument",
+					"item": [
+						{
+							"name": "/Registration/SpecifyIdentityDocument",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"documentBytes\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SpecifyIdentityDocument",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SpecifyIdentityDocument"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"documentBytes\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SpecifyIdentityDocument",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SpecifyIdentityDocument"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"errorType\": null\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "SkipProvisioningIdentityDocument",
+					"item": [
+						{
+							"name": "/Registration/SkipProvisioningIdentityDocument",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Registration/SkipProvisioningIdentityDocument",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Registration",
+										"SkipProvisioningIdentityDocument"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											},
+											{
+												"key": "Authorization",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Registration/SkipProvisioningIdentityDocument",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Registration",
+												"SkipProvisioningIdentityDocument"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": null,\n  \"responseData\": {\n    \"allDataProvided\": \"<boolean>\",\n    \"nextStep\": null,\n    \"pinCodeLength\": \"<integer>\"\n  },\n  \"error\": {\n    \"nullable\": true\n  },\n  \"errorMessage\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/myffin"
+		}
+	]
+}

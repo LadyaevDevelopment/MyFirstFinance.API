@@ -1,12 +1,12 @@
 ﻿namespace Core.Common.DateTimeNow
 {
-	public interface IDateTimeNow
+    public interface IDateTimeNow
 	{
-		DateTime Now { get; }
+        DateTimeOffset Now { get; }
 
 		public class Base : IDateTimeNow
 		{
-			public DateTime Now => DateTime.Now;
+			public DateTimeOffset Now => DateTimeOffset.Now;
 		}
 	}
 }

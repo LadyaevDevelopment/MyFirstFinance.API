@@ -47,7 +47,7 @@ namespace Domain.UseCases.Tests
 			_randomMock = new Mock<IRandom>();
 			_dateTimeNowMock = new Mock<IDateTimeNow>();
 			_dateTimeNowMock.Setup(dateTime => dateTime.Now)
-				.Returns(DateTime.UtcNow);
+				.Returns(DateTimeOffset.UtcNow);
 
 			_configuration = new Configuration(
 				ConfirmationCodeLength: 6,
@@ -129,7 +129,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
-				RegistrationDate: DateTime.Now,
+				RegistrationDate: DateTimeOffset.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 			
 			var userTemporaryBan = new UserTemporaryBan(
