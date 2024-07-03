@@ -9,7 +9,7 @@ public partial class UserTemporaryBan
 
     public Guid UserId { get; set; }
 
-    public DateTime StartDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
 
     public int DurationInSeconds { get; set; }
 

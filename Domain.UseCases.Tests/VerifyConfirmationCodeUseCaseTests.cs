@@ -68,6 +68,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(
@@ -106,6 +107,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(
@@ -144,6 +146,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(
@@ -182,6 +185,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(
@@ -223,6 +227,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(
@@ -261,6 +266,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			var confirmationCode = new ConfirmationCode(

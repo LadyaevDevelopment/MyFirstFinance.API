@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.Users
 {
-    public record User(
+	public record User(
         Guid Id,
         string? LastName,
         string? FirstName,
@@ -11,6 +11,7 @@
         string? Email,
         string? AvatarPath,
         bool IsBlocked,
+        DateTime RegistrationDate,
         UserStatus Status)
     {
         public List<UserTemporaryBan> UserTemporaryBans { get; set; } = [];

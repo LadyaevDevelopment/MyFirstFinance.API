@@ -50,6 +50,7 @@ namespace Data.Production.Mapping
 				model.Email,
 				model.AvatarPath,
 				model.IsBlocked,
+				RegistrationDate: model.RegistrationDate,
 				(UserStatus)model.StatusId)
 			{
 				UserTemporaryBans = model.UserTemporaryBans.Select(item => item.ToEntity()).ToList(),
@@ -70,6 +71,7 @@ namespace Data.Production.Mapping
 				Email = entity.Email,
 				AvatarPath = entity.AvatarPath,
 				IsBlocked = entity.IsBlocked,
+				RegistrationDate = entity.RegistrationDate,
 				StatusId = (int)entity.Status
 			};
 		}

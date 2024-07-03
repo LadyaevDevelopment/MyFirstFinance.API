@@ -60,6 +60,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyName);
 
 			_context.Users.Add(user.ToModel());

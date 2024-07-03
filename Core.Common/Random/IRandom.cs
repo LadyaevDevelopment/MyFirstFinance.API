@@ -3,7 +3,7 @@ using Troschuetz.Random.Generators;
 
 namespace Core.Common.Random
 {
-	public interface IRandom
+    public interface IRandom
 	{
 		private const string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -47,5 +47,16 @@ namespace Core.Common.Random
 				return RandomInt(min, max);
 			}
 		}
-	}
+
+        public record Static(int Integer, string String) : IRandom
+        {
+			public int RandomInt(int minValue, int maxValue) => Integer;
+
+            public int RandomInt(int digitsCount) => Integer;
+
+			public string RandomString(int length, string alphabet = Alphabet) => String;
+
+            public string RandomString(int minLength, int maxLength, string alphabet = Alphabet) => String;
+        }
+    }
 }

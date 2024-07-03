@@ -89,6 +89,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: true,
+				RegistrationDate: _dateTimeNowMock.Object.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 
 			_context.Users.Add(user.ToModel());
@@ -128,6 +129,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: DateTime.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 			
 			var userTemporaryBan = new UserTemporaryBan(
@@ -174,6 +176,7 @@ namespace Domain.UseCases.Tests
 				Email: null,
 				AvatarPath: null,
 				IsBlocked: false,
+				RegistrationDate: _dateTimeNowMock.Object.Now,
 				Status: UserStatus.NeedToSpecifyBirthDate);
 			
 			var activeConfirmationCode = new ConfirmationCode(

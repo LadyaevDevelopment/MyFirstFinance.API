@@ -1,4 +1,6 @@
 using Api.Authentication;
+using Api.Communication.Converter;
+using Api.Middleware;
 using Api.SwaggerOptions.OperationFilters;
 using Api.SwaggerOptions.SchemaFilters;
 using Api.Versioning;
@@ -54,7 +56,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 		NamingStrategy = new CamelCaseNamingStrategy()
 	};
 	options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-	options.SerializerSettings.Converters.Add(new UnixDateTimeConverter());
+	options.SerializerSettings.Converters.Add(new DateTimeConverter());
+	options.SerializerSettings.Converters.Add(new DateOnlyConverter());
 	options.SerializerSettings.Converters.Add(new StringEnumConverter());
 }).ConfigureApiBehaviorOptions(options =>
 {
@@ -89,6 +92,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

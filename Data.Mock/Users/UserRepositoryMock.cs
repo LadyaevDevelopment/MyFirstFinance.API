@@ -16,7 +16,8 @@ namespace Data.Mock.Users
             "Email",
             null,
             false,
-            UserStatus.Registered);
+			RegistrationDate: DateTime.Now,
+			UserStatus.Registered);
 
         public Task<User?> EntityById(Guid id)
         {

@@ -8,7 +8,7 @@ create table Users(
 	[Id] uniqueidentifier not null constraint PK_Users primary key default NEWID(),
 	[FirstName] nvarchar(100) null,
 	[MiddleName] nvarchar(100) null,
-	[RegistrationDate] datetime not null,
+	[RegistrationDate] datetimeoffset not null,
 	[LastName] nvarchar(100) null,
 	[StatusId] int not null,
 	[BirthDate] date null,
@@ -23,7 +23,7 @@ go
 create table UserTemporaryBans(
 	[Id] uniqueidentifier not null constraint PK_UserTemporaryBans primary key default NEWID(),
 	[UserId] uniqueidentifier not null constraint FK_UserTemporaryBans_UserId foreign key references Users(Id),
-	[StartDate] datetime not null,
+	[StartDate] datetimeoffset not null,
 	[DurationInSeconds] int not null
 );
 
@@ -31,7 +31,7 @@ create table ConfirmationCodes(
 	[Id] uniqueidentifier not null constraint PK_ConfirmationCodes primary key default NEWID(),
 	[UserId] uniqueidentifier not null constraint FK_ConfirmationCodes_UserId foreign key references Users(Id),
 	[Code] nvarchar(10) not null,
-	[CreationDate] datetime not null,
+	[CreationDate] datetimeoffset not null,
 	[StatusId] int not null,
 	[FailedCodeConfirmationAttemptCount] int not null
 );

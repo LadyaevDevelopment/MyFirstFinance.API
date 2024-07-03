@@ -7,11 +7,11 @@ namespace Data.Production.Context;
 
 public partial class DefaultDbContext : DbContext
 {
-	public DefaultDbContext()
-	{
-	}
+    public DefaultDbContext()
+    {
+    }
 
-	public DefaultDbContext(DbContextOptions<DefaultDbContext> options)
+    public DefaultDbContext(DbContextOptions<DefaultDbContext> options)
         : base(options)
     {
     }
@@ -38,7 +38,6 @@ public partial class DefaultDbContext : DbContext
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Code).HasMaxLength(10);
-            entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.User).WithMany(p => p.ConfirmationCodes)
                 .HasForeignKey(d => d.UserId)
@@ -92,7 +91,6 @@ public partial class DefaultDbContext : DbContext
             entity.Property(e => e.MiddleName).HasMaxLength(100);
             entity.Property(e => e.PhoneNumber).HasMaxLength(20);
             entity.Property(e => e.PinCode).HasMaxLength(20);
-            entity.Property(e => e.RegistrationDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<UserResidenceAddress>(entity =>
@@ -112,7 +110,6 @@ public partial class DefaultDbContext : DbContext
         modelBuilder.Entity<UserTemporaryBan>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.StartDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserTemporaryBans)
                 .HasForeignKey(d => d.UserId)

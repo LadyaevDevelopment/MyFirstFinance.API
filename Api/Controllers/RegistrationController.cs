@@ -292,7 +292,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpGet("[action]")]
+		[HttpPut("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse>> SkipProvisioningIdentityDocument()
 		{
 			var userId = this.User()!.Id;

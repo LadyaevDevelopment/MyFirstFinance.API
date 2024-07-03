@@ -11,7 +11,7 @@ public partial class ConfirmationCode
 
     public string Code { get; set; } = null!;
 
-    public DateTime CreationDate { get; set; }
+    public DateTimeOffset CreationDate { get; set; }
 
     public int StatusId { get; set; }
 

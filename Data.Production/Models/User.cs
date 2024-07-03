@@ -11,7 +11,7 @@ public partial class User
 
     public string? MiddleName { get; set; }
 
-    public DateTime RegistrationDate { get; set; }
+    public DateTimeOffset RegistrationDate { get; set; }
 
     public string? LastName { get; set; }
 
