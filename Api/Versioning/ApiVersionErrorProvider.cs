@@ -9,7 +9,7 @@ namespace Api.Versioning
 	{
 		public IActionResult CreateResponse(ErrorResponseContext context)
 		{
-			return new JsonResult(new ResponseWrapper<EmptyResponse>(OperationStatus.UnsupportedApiVersion));
+			return new JsonResult(new SimpleResponseWrapper<EmptyResponse>(OperationStatus.UnsupportedApiVersion));
 		}
 	}
 }

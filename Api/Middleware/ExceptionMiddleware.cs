@@ -27,7 +27,7 @@ namespace Api.Middleware
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-			var response = new ResponseWrapper<EmptyResponse>(OperationStatus.Failed, "Internal server error");
+			var response = new SimpleResponseWrapper<EmptyResponse>(OperationStatus.Failed, "Internal server error");
 
 			var jsonResponse = JsonConvert.SerializeObject(response, new JsonSerializerSettings
 			{

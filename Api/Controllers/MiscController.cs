@@ -17,27 +17,27 @@ namespace Api.Controllers
 		IAddressRepository addressRepository) : ControllerBase
 	{
 		[HttpGet("[action]")]
-		public async Task<ResponseWrapper<PolicyDocumentsResponse>> PolicyDocuments()
+		public async Task<SimpleResponseWrapper<PolicyDocumentsResponse>> PolicyDocuments()
 		{
 			var documents = await policyDocumentRepository.FilteredEntities(new());
-			return new ResponseWrapper<PolicyDocumentsResponse>(
+			return new SimpleResponseWrapper<PolicyDocumentsResponse>(
 				new PolicyDocumentsResponse(documents.Select(PolicyDocumentModel.FromEntity).ToList()));
 		}
 
 		[HttpGet("[action]")]
-		public async Task<ResponseWrapper<CountriesResponse>> Countries()
+		public async Task<SimpleResponseWrapper<CountriesResponse>> Countries()
 		{
 			var countries = await countryRepository.FilteredEntities(new());
-			return new ResponseWrapper<CountriesResponse>(
+			return new SimpleResponseWrapper<CountriesResponse>(
 				new CountriesResponse(countries.Select(CountryModel.FromEntity).ToList()));
 		}
 
 		[Authorize]
 		[HttpGet("[action]")]
-		public async Task<ResponseWrapper<AddressesResponse>> Addresses([FromQuery] AddressesRequest request)
+		public async Task<SimpleResponseWrapper<AddressesResponse>> Addresses([FromQuery] AddressesRequest request)
 		{
 			var addresses = await addressRepository.FilteredEntities(new(request.CountryIso2Code, request.SearchQuery));
-			return new ResponseWrapper<AddressesResponse>(
+			return new SimpleResponseWrapper<AddressesResponse>(
 				new AddressesResponse(addresses.Select(AddressModel.FromEntity).ToList()));
 		}
 	}

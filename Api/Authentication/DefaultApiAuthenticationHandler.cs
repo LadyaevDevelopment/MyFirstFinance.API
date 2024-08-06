@@ -60,7 +60,7 @@ namespace Api.Authentication
 		{
 			Response.StatusCode = 403;
 			await Response.WriteAsync(JsonConvert.SerializeObject(
-				new ResponseWrapper<EmptyResponse>(OperationStatus.Forbidden),
+				new SimpleResponseWrapper<EmptyResponse>(OperationStatus.Forbidden),
 				serializerSettings));
 		}
 	}

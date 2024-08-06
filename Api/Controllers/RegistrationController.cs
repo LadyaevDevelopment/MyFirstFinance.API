@@ -28,13 +28,13 @@ namespace Api.Controllers
 		SpecifyIdentityDocumentUseCase specifyIdentityDocumentUseCase,
 		SkipProvisioningIdentityDocumentUseCase skipProvisioningIdentityDocumentUseCase) : ControllerBase
 	{
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyBirthDateApiError>> SpecifyBirthDate(
 			SpecifyBirthDateRequest request)
 		{
 			var userId = this.User()!.Id;
 
-			var result = await specifyBirthDateUseCase.Process(userId, request.Date);
+			var result = await specifyBirthDateUseCase.Process(userId, DateOnly.FromDateTime(request.Date));
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyBirthDateApiError>(
@@ -71,7 +71,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyName(
 			SpecifyNameRequest request)
 		{
@@ -114,7 +114,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyEmail(
 			SpecifyEmailRequest request)
 		{
@@ -157,7 +157,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyResidenceAddress(
 			SpecifyResidenceAddressRequest request)
 		{
@@ -165,7 +165,7 @@ namespace Api.Controllers
 
 			var result = await specifyResidenceAddressUseCase.Process(
 				userId,
-				request.CountryId,
+				Guid.Parse(request.CountryId),
 				request.City,
 				request.Street,
 				request.BuildingNumber,
@@ -206,7 +206,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyPinCode(
 			SpecifyPinCodeRequest request)
 		{
@@ -249,7 +249,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
+		[HttpPatch("[action]")]
 		public async Task<ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>> SpecifyIdentityDocument(
 			SpecifyIdentityDocumentRequest request)
 		{
@@ -292,15 +292,15 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPut("[action]")]
-		public async Task<ResponseWrapper<SpecifyUserDataResponse>> SkipProvisioningIdentityDocument()
+		[HttpPatch("[action]")]
+		public async Task<SimpleResponseWrapper<SpecifyUserDataResponse>> SkipProvisioningIdentityDocument()
 		{
 			var userId = this.User()!.Id;
 
 			var result = await skipProvisioningIdentityDocumentUseCase.Process(userId);
 			if (result.Successful)
 			{
-				return new ResponseWrapper<SpecifyUserDataResponse>(
+				return new SimpleResponseWrapper<SpecifyUserDataResponse>(
 					new SpecifyUserDataResponse(
 						result.Data!.AllDataProvided,
 						result.Data!.NextStep?.ToApiEnum()));
@@ -310,11 +310,11 @@ namespace Api.Controllers
 				return result.Error!.ErrorType switch
 				{
 					SkipProvisioningIdentityDocumentErrorType.UserNotFound =>
-						new ResponseWrapper<SpecifyUserDataResponse>(
+						new SimpleResponseWrapper<SpecifyUserDataResponse>(
 							OperationStatus.NotFound,
 							errorMessage: null),
 					SkipProvisioningIdentityDocumentErrorType.Other =>
-						new ResponseWrapper<SpecifyUserDataResponse>(
+						new SimpleResponseWrapper<SpecifyUserDataResponse>(
 							OperationStatus.Failed,
 							errorMessage: result.Error!.Exception?.Message),
 					_ => throw new NotImplementedException(),

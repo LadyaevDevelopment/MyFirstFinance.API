@@ -1,13 +1,13 @@
 ﻿namespace Api.Responses.Confirmation
 {
 	public class RequireConfirmationCodeResponse(
-		Guid confirmationCodeId,
+		string confirmationCodeId,
 		int confirmationCodeLength,
 		int resendTimeInSeconds,
 		int allowedCodeConfirmationAttemptCount,
 		int confirmationCodeLifeTimeInSeconds)
 	{
-		public Guid ConfirmationCodeId { get; set; } = confirmationCodeId;
+		public string ConfirmationCodeId { get; set; } = confirmationCodeId;
 
 		public int ConfirmationCodeLength { get; set; } = confirmationCodeLength;
 

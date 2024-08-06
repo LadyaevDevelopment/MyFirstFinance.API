@@ -29,19 +29,19 @@
 		}
 	}
 
-	public class ResponseWrapper<TResponse> : ResponseWrapper<TResponse, object> where TResponse : class
+	public class SimpleResponseWrapper<TResponse> : ResponseWrapper<TResponse, object> where TResponse : class
 	{
-		public ResponseWrapper(OperationStatus status) : base(status)
+		public SimpleResponseWrapper(OperationStatus status) : base(status)
 		{
 
 		}
 
-		public ResponseWrapper(TResponse response) : base(response)
+		public SimpleResponseWrapper(TResponse response) : base(response)
 		{
 
 		}
 
-		public ResponseWrapper(OperationStatus status, string? errorMessage) : base(status, null, errorMessage)
+		public SimpleResponseWrapper(OperationStatus status, string? errorMessage) : base(status, null, errorMessage)
 		{
 
 		}

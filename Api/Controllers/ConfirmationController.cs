@@ -28,7 +28,7 @@ namespace Api.Controllers
 			{
 				return new ResponseWrapper<RequireConfirmationCodeResponse, RequireConfirmationCodeApiError>(
 					new RequireConfirmationCodeResponse(
-						result.Data!.ConfirmationCodeId,
+						result.Data!.ConfirmationCodeId.ToString(),
 						result.Data!.ConfirmationCodeLength,
 						result.Data!.ResendTimeInSeconds,
 						result.Data!.AllowedConfirmCodeAttemptCount,
@@ -71,7 +71,7 @@ namespace Api.Controllers
 		public async Task<ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>> VerifyConfirmationCode(
 			VerifyConfirmationCodeRequest request)
 		{
-			var result = await verifyConfirmationCodeUseCase.Process(request.ConfirmationCodeId, request.ConfirmationCode);
+			var result = await verifyConfirmationCodeUseCase.Process(Guid.Parse(request.ConfirmationCodeId), request.ConfirmationCode);
 
 			if (result.Successful)
 			{
@@ -80,7 +80,7 @@ namespace Api.Controllers
 
 				return new ResponseWrapper<VerifyConfirmationCodeResponse, VerifyConfirmationCodeApiError>(
 					new VerifyConfirmationCodeResponse(
-						result.Data!.UserId,
+						result.Data!.UserId.ToString(),
 						token,
 						user.Status));
 			}

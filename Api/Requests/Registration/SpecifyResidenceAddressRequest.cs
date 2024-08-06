@@ -2,7 +2,7 @@
 {
 	public class SpecifyResidenceAddressRequest
 	{
-		public Guid CountryId { get; set; }
+		public string CountryId { get; set; } = "";
 
 		public string City { get; set; } = "";
 
