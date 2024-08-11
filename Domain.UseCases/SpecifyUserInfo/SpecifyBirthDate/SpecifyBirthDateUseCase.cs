@@ -6,9 +6,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
 {
-	public class SpecifyBirthDateUseCase(
+    public class SpecifyBirthDateUseCase(
         IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		IDateTimeNow dateTimeNow,
         Configuration configuration)
     {
@@ -48,16 +48,17 @@ namespace Domain.UseCases.SpecifyUserData.SpecifyBirthDate
                         SpecifyBirthDateErrorType.UserIsMinor, Exception: null));
             }
             
-            user = await userRepository.SavedEntity(user with { BirthDate = birthDate });
-            
-            var nextStep = provisioningUserData.NextStep(user);
-            int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            user = user with
+            {
+                BirthDate = birthDate,
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-            return new SpecifyBirthDateResult.Success(
-                new SpecifyUserInfoData(
-                    AllDataProvided: nextStep is null,
-                    nextStep,
-                    pinCodeLength));
+            int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
+
+            return new SpecifyBirthDateResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 
         private int Age(DateOnly birthDate)

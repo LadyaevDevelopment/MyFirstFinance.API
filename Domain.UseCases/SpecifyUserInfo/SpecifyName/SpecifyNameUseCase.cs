@@ -5,9 +5,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SpecifyName
 {
-	public class SpecifyNameUseCase(
+    public class SpecifyNameUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		Configuration configuration)
 	{
 		public async Task<SpecifyUserInfoResult> Process(
@@ -43,22 +43,20 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyName
 						SpecifyUserInfoErrorType.InvalidData,
 						Exception: new Exception("Correct name must be not empty and can contain only letters")));
 			}
-			
-			user = await userRepository.SavedEntity(user with
+
+			user = user with
 			{
 				LastName = lastName,
 				FirstName = firstName,
 				MiddleName = middleName
-			});
+			};
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+			int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
 
-			return new SpecifyUserInfoResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+			return new SpecifyUserInfoResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }

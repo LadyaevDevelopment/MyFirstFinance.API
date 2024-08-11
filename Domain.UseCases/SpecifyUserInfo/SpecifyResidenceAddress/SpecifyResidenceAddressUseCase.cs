@@ -5,9 +5,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SpecifyResidenceAddress
 {
-	public class SpecifyResidenceAddressUseCase(
+    public class SpecifyResidenceAddressUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		Configuration configuration)
 	{
 		public async Task<SpecifyUserInfoResult> Process(
@@ -48,14 +48,17 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyResidenceAddress
 				apartmentNumber);
 			await userRepository.SavedResidenceAddress(residenceAddress);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            user = user with
+            {
+                UserResidenceAddress = residenceAddress,
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-			return new SpecifyUserInfoResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+            int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
+
+            return new SpecifyUserInfoResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }

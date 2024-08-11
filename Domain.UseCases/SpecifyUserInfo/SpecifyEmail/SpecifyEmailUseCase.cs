@@ -6,9 +6,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SpecifyEmail
 {
-	public class SpecifyEmailUseCase(
+    public class SpecifyEmailUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		IEmailValidation emailValidation,
 		Configuration configuration)
 	{
@@ -35,19 +35,17 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyEmail
 						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Invalid e-mail format")));
 			}
 
-			user = await userRepository.SavedEntity(user with
-			{
-				Email = email,
-			});
+            user = user with
+            {
+				Email = email
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
 
-			return new SpecifyUserInfoResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+            return new SpecifyUserInfoResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }

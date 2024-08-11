@@ -16,7 +16,7 @@ namespace Domain.UseCases.Tests
 
 		private readonly Configuration _configuration;
 		private readonly SpecifyPinCodeUseCase _useCase;
-		private readonly ProvisioningUserData _provisioningUserData;
+		private readonly UserStatusStrategy _provisioningUserData;
 
 		public SpecifyPinCodeUseCaseTests()
 		{
@@ -26,7 +26,7 @@ namespace Domain.UseCases.Tests
 			_context = new DefaultDbContext(options);
 			_userRepository = new UserRepository(_context);
 
-			_provisioningUserData = new ProvisioningUserData.Base();
+			_provisioningUserData = new UserStatusStrategy.Base();
 
 			_configuration = new Configuration(
 				ConfirmationCodeLength: 6,

@@ -3,7 +3,6 @@
 namespace Domain.UseCases.SpecifyUserInfo.Base
 {
     public record SpecifyUserInfoData(
-        bool AllDataProvided,
-        ProvisioningUserDataStep? NextStep,
+        UserStatus ActualStatus,
         int? PinCodeLength);
 }

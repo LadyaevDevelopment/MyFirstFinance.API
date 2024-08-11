@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("[controller]")]
 	[Authorize]
 	public class RegistrationController(
@@ -38,9 +38,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyBirthDateApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -81,9 +79,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -124,9 +120,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -173,9 +167,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -216,9 +208,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -259,9 +249,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new ResponseWrapper<SpecifyUserDataResponse, SpecifyUserInfoApiError>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{
@@ -301,9 +289,7 @@ namespace Api.Controllers
 			if (result.Successful)
 			{
 				return new SimpleResponseWrapper<SpecifyUserDataResponse>(
-					new SpecifyUserDataResponse(
-						result.Data!.AllDataProvided,
-						result.Data!.NextStep?.ToApiEnum()));
+					new SpecifyUserDataResponse(result.Data!.ActualStatus.ToApiEnum()));
 			}
 			else
 			{

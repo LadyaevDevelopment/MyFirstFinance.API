@@ -2,11 +2,9 @@
 
 namespace Api.Responses.Registration
 {
-	public class SpecifyUserDataResponse(bool allDataProvided, ApiProvisioningUserDataStep? nextStep)
+    public class SpecifyUserDataResponse(ApiUserStatus userStatus)
 	{
-		public bool AllDataProvided { get; set; } = allDataProvided;
-
-		public ApiProvisioningUserDataStep? NextStep { get; set; } = nextStep;
+		public ApiUserStatus UserStatus { get; set; } = userStatus;
 
 		public int? PinCodeLength { get; set; }
 	}

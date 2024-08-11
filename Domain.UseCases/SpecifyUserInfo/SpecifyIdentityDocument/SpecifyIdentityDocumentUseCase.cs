@@ -6,9 +6,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SpecifyIdentityDocument
 {
-	public class SpecifyIdentityDocumentUseCase(
+    public class SpecifyIdentityDocumentUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		IFileService fileService,
 		Configuration configuration)
 	{
@@ -43,14 +43,17 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyIdentityDocument
 				result.Data!.Path);
 			await userRepository.SavedIdentityDocument(identityDocument);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            user = user with
+            {
+                IdentityDocument = identityDocument
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-			return new SpecifyUserInfoResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+            int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
+
+            return new SpecifyUserInfoResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }

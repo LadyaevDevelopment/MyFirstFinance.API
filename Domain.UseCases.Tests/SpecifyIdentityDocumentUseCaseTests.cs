@@ -18,7 +18,7 @@ namespace Domain.UseCases.Tests
 
 		private readonly Configuration _configuration;
 		private readonly SpecifyIdentityDocumentUseCase _useCase;
-		private readonly ProvisioningUserData _provisioningUserData;
+		private readonly UserStatusStrategy _provisioningUserData;
 		private readonly Mock<IFileService> _fileServiceMock;
 
 		public SpecifyIdentityDocumentUseCaseTests()
@@ -33,7 +33,7 @@ namespace Domain.UseCases.Tests
 			_fileServiceMock.Setup(item => item.SavedFile(It.IsAny<byte[]>(), It.IsAny<string>()))
 				.Returns(Task.FromResult((SaveFileResult)new SaveFileResult.Success(new SavedFile(""))));
 
-			_provisioningUserData = new ProvisioningUserData.Base();
+			_provisioningUserData = new UserStatusStrategy.Base();
 
 			_configuration = new Configuration(
 				ConfirmationCodeLength: 6,

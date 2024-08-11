@@ -19,7 +19,7 @@ namespace Domain.UseCases.Tests
 		private readonly Mock<IDateTimeNow> _dateTimeNowMock;
 		private readonly Configuration _configuration;
 		private readonly SpecifyBirthDateUseCase _useCase;
-		private readonly ProvisioningUserData _provisioningUserData;
+		private readonly UserStatusStrategy _provisioningUserData;
 
 		public SpecifyBirthDateUseCaseTests()
 		{
@@ -33,7 +33,7 @@ namespace Domain.UseCases.Tests
 			_dateTimeNowMock.Setup(dateTime => dateTime.Now)
 				.Returns(DateTimeOffset.UtcNow);
 
-			_provisioningUserData = new ProvisioningUserData.Base();
+			_provisioningUserData = new UserStatusStrategy.Base();
 
 			_configuration = new Configuration(
 				ConfirmationCodeLength: 6,
