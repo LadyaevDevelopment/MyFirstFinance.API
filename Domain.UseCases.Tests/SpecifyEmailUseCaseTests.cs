@@ -18,7 +18,7 @@ namespace Domain.UseCases.Tests
 
 		private readonly Configuration _configuration;
 		private readonly SpecifyEmailUseCase _useCase;
-		private readonly ProvisioningUserData _provisioningUserData;
+		private readonly UserStatusStrategy _provisioningUserData;
 		private readonly Mock<IEmailValidation> _emailValidationMock;
 
 		public SpecifyEmailUseCaseTests()
@@ -33,7 +33,7 @@ namespace Domain.UseCases.Tests
 			_emailValidationMock.Setup(item => item.IsValid(It.IsAny<string>()))
 				.Returns(true);
 
-			_provisioningUserData = new ProvisioningUserData.Base();
+			_provisioningUserData = new UserStatusStrategy.Base();
 
 			_configuration = new Configuration(
 				ConfirmationCodeLength: 6,

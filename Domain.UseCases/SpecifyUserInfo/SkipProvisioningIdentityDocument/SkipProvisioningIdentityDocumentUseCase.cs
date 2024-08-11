@@ -5,9 +5,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SkipProvisioningIdentityDocument
 {
-	public class SkipProvisioningIdentityDocumentUseCase(
+    public class SkipProvisioningIdentityDocumentUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		Configuration configuration)
 	{
 		public async Task<SkipProvisioningIdentityDocumentResult> Process(Guid userId)
@@ -36,14 +36,17 @@ namespace Domain.UseCases.SpecifyUserInfo.SkipProvisioningIdentityDocument
 				Path: null);
 			await userRepository.SavedIdentityDocument(identityDocument);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            user = user with
+            {
+                IdentityDocument = identityDocument,
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
+            
+			int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
 
-			return new SkipProvisioningIdentityDocumentResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+			return new SkipProvisioningIdentityDocumentResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }

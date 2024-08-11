@@ -73,7 +73,7 @@ namespace Core.DI
 			services.AddScoped<ITokenProcessor, ITokenProcessor.Base>();
 
 			// use cases
-			services.AddScoped<ProvisioningUserData, ProvisioningUserData.Base>();
+			services.AddScoped<UserStatusStrategy, UserStatusStrategy.Base>();
 			services.AddScoped<RequireConfirmationCodeUseCase>();
 			services.AddScoped<VerifyConfirmationCodeUseCase>();
 			services.AddScoped<SkipProvisioningIdentityDocumentUseCase>();

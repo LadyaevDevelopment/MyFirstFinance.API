@@ -5,9 +5,9 @@ using Domain.UseCases.SpecifyUserInfo.Base;
 
 namespace Domain.UseCases.SpecifyUserInfo.SpecifyPinCode
 {
-	public class SpecifyPinCodeUseCase(
+    public class SpecifyPinCodeUseCase(
 		IUserRepository userRepository,
-		ProvisioningUserData provisioningUserData,
+		UserStatusStrategy provisioningUserData,
 		Configuration configuration)
 	{
 		public async Task<SpecifyUserInfoResult> Process(Guid userId, string pinCode)
@@ -39,19 +39,17 @@ namespace Domain.UseCases.SpecifyUserInfo.SpecifyPinCode
 						SpecifyUserInfoErrorType.InvalidData, Exception: new Exception("Invalid pin code format")));
 			}
 
-			user = await userRepository.SavedEntity(user with
-			{
-				PinCode = pinCode,
-			});
+            user = user with
+            {
+                PinCode = pinCode,
+            };
+            var actualStatus = provisioningUserData.ActualStatus(user);
+            user = user with { Status = actualStatus };
+            await userRepository.SavedEntity(user);
 
-			var nextStep = provisioningUserData.NextStep(user);
-			int? pinCodeLength = nextStep == ProvisioningUserDataStep.PinCode ? configuration.PinCodeLength : null;
+            int? pinCodeLength = actualStatus == UserStatus.NeedToCreatePinCode ? configuration.PinCodeLength : null;
 
-			return new SpecifyUserInfoResult.Success(
-				new SpecifyUserInfoData(
-					AllDataProvided: nextStep is null,
-					nextStep,
-					pinCodeLength));
+            return new SpecifyUserInfoResult.Success(new SpecifyUserInfoData(actualStatus, pinCodeLength));
 		}
 	}
 }
