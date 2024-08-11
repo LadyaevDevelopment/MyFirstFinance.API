@@ -1,4 +1,6 @@
-﻿namespace Api.Responses.Confirmation
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Api.Responses.Confirmation
 {
 	public class RequireConfirmationCodeResponse(
 		string confirmationCodeId,
@@ -7,6 +9,7 @@
 		int allowedCodeConfirmationAttemptCount,
 		int confirmationCodeLifeTimeInSeconds)
 	{
+		[Required]
 		public string ConfirmationCodeId { get; set; } = confirmationCodeId;
 
 		public int ConfirmationCodeLength { get; set; } = confirmationCodeLength;

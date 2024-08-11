@@ -6,7 +6,8 @@ namespace Api.Models
 {
 	public class CountryModel(string id, string name, string phoneNumberCode, string flagImageUrl, string[] phoneNumberMasks)
 	{
-		public string Id { get; set; } = id;
+        [Required]
+        public string Id { get; set; } = id;
 
 		[Required]
 		public string Name { get; set; } = name;

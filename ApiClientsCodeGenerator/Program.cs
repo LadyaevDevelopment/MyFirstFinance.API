@@ -20,7 +20,7 @@ new CodeGenerator().Generate(new GeneratorSettings
 {
 	Assembly = typeof(OperationStatus).Assembly,
 	OutputDirectory = outputDirectory,
-	AndroidPackage = new AndroidPackage("ladyaev.development.myfirstfinance.data.api"),
+	AndroidPackage = new AndroidPackage("ladyaev.development.myfirstfinance.core.api"),
 	ApiClientMethodTypes = ApiClientMethodType.Asynchronous,
 	PropertiesNamingPolicy = ApiNamingPolicy.CamelCase,
 	EnumSerializationStrategy = EnumSerializationStrategy.CamelCase,
