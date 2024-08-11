@@ -1,7 +1,10 @@
-﻿namespace Api.Requests.Registration
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Api.Requests.Registration
 {
 	public class SpecifyIdentityDocumentRequest
 	{
-		public byte[] DocumentBytes { get; set; } = [];
+        [Required]
+        public byte[] DocumentBytes { get; set; } = [];
 	}
 }

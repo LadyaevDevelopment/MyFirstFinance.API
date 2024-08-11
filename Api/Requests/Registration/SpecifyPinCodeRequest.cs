@@ -1,7 +1,10 @@
-﻿namespace Api.Requests.Registration
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Api.Requests.Registration
 {
 	public class SpecifyPinCodeRequest
 	{
-		public string PinCode { get; set; } = "";
+        [Required]
+        public string PinCode { get; set; } = "";
 	}
 }
